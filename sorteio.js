@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125135155';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125135954';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
@@ -52,7 +52,7 @@ async function revelar(tirado, dica, pool, suspense){
   palco.classList.add('aberto');
   // 4. o cartão sai do envelope e vem pra frente
   await sleep(1000); palco.classList.add('sobe');
-  await sleep(1750); palco.classList.add('frente');
+  await sleep(2000); palco.classList.add('frente');
   await sleep(700);
   // 5. o nome
   escreverNome(nm, tirado);

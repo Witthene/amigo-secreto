@@ -282,3 +282,9 @@ body.revelado .env-aba{transition:opacity 1.4s ease}
 .palco.frente .env-aba{opacity:0;transition:transform 1.4s var(--suave),opacity .8s ease}
 body.cena .palco{transform:translateY(-2vh) scale(1.18)}
 @media(max-width:420px){body.cena .palco{transform:translateY(0) scale(1.08)}}
+
+/* correção: o cartão sai por inteiro antes de passar pra frente */
+.palco.sobe .env-cartao{transform:translateY(-204px)}
+.palco.frente .env-cartao{transform:translateY(-112px) scale(1.08)}
+body.cena .palco{transform:translateY(7vh) scale(1.1)}
+@media(max-width:420px){body.cena .palco{transform:translateY(9vh) scale(1.04)}}
