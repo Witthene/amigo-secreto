@@ -89,15 +89,19 @@ function telaCriar(){
     $('#criar').disabled = true;
     const id = Array.from(crypto.getRandomValues(new Uint8Array(8)), b => b.toString(36).padStart(2,'0')).join('').slice(0,12);
     await setDoc(doc(db, 'sorteios', id), { nomes, jaSortearam: [], disponiveis: nomes, cofre: {}, criado: Date.now() });
-    const link = location.origin + location.pathname + '?g=' + id;
+    const base = location.origin + location.pathname + '?g=' + id + '&p=';
     tela(`
       <h1>Sorteio criado!</h1>
-      <p class="sub">Mande este link no grupo da família. Cada um entra quando quiser, clica no próprio nome e sorteia.</p>
-      <div class="link">${link}</div>
-      <button id="copiar">Copiar link</button>
-      <button class="sec" onclick="location.href='${link}'">Abrir o sorteio</button>
-      <p class="aviso">Ninguém, nem você, consegue ver quem tirou quem. Cada resultado fica trancado com a senha de quem sorteou.</p>`);
-    $('#copiar').onclick = () => { navigator.clipboard.writeText(link); $('#copiar').textContent = 'Copiado!'; };
+      <p class="sub">Copie o link de cada pessoa e mande só pra ela. Ela abre, aperta sortear e pronto.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;text-align:left">
+      ${nomes.map((n, i) => `<div style="display:flex;justify-content:space-between;align-items:center;background:#0f0c13;border:1px solid var(--line);border-radius:12px;padding:10px 14px">
+        <span>${esc(n)}</span><button class="sec cp" data-i="${i}" style="width:auto;margin:0;padding:8px 14px;font-size:.85rem">Copiar link</button></div>`).join('')}
+      </div>
+      <p class="aviso">Ninguém, nem você, consegue ver quem tirou quem. Só não abra o link dos outros, senão você sorteia por eles!</p>`);
+    document.querySelectorAll('.cp').forEach(b => b.onclick = () => {
+      navigator.clipboard.writeText(base + b64(new TextEncoder().encode(nomes[b.dataset.i])).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_'));
+      b.textContent = 'Copiado!'; b.style.background = '#2e6b45';
+    });
   };
 }
 
@@ -172,9 +176,7 @@ function mostrar(tirado){
     <div class="presente">🎁</div>
     <p class="sub">Seu amigo secreto é</p>
     <div class="nome">${esc(tirado)}</div>
-    <p class="aviso">Guarde segredo! 🤫 Se quiser ver de novo, entre no link e use "Já sorteei" com a sua senha.</p>
-    <button class="sec" id="fim">Fechar</button>`);
-  $('#fim').onclick = telaInicio;
+    <p class="aviso">Guarde segredo! 🤫 Se esquecer, é só abrir este mesmo link de novo neste celular.</p>`);
 }
 
 function telaRever(){
@@ -204,7 +206,52 @@ function telaRever(){
   });
 }
 
-if (gid) telaInicio(); else telaCriar();
+// ---------- link pessoal: só um botão de sortear ----------
+const pTok = new URLSearchParams(location.search).get('p');
+async function telaPessoal(){
+  const nome = new TextDecoder().decode(unb64(pTok.replace(/-/g,'+').replace(/_/g,'/')));
+  const snap = await getDoc(doc(db, 'sorteios', gid));
+  if (!snap.exists() || !snap.data().nomes.includes(nome)) { tela(`<h1>Ops!</h1><p class="sub">Link inválido.</p>`); return; }
+  dados = snap.data();
+  const chaveLocal = 'as_' + gid;
+  const salvo = localStorage.getItem(chaveLocal);
+  if (dados.jaSortearam.includes(nome)) {
+    if (salvo) { try { return mostrar(await destrancar(dados.cofre[nome], salvo, nome)); } catch {} }
+    tela(`<h1>Já sorteado!</h1><p class="sub">${esc(nome)}, você já sorteou seu amigo secreto. 🤫</p>`);
+    return;
+  }
+  tela(`
+    <h1>Olá, ${esc(nome)}!</h1>
+    <p class="sub">Aperte o botão pra descobrir seu amigo secreto.<br>Não deixe ninguém olhar!</p>
+    <div class="presente">🎁</div>
+    <button id="ir">Sortear</button>
+    <p class="erro" id="erro"></p>`);
+  $('#ir').onclick = async () => {
+    $('#ir').disabled = true;
+    const pin = b64(crypto.getRandomValues(new Uint8Array(16)));
+    try {
+      const ref = doc(db, 'sorteios', gid);
+      const tirado = await runTransaction(db, async tx => {
+        const d = (await tx.get(ref)).data();
+        if (d.jaSortearam.includes(nome)) throw new Error('ja');
+        const faltam = d.nomes.filter(n => !d.jaSortearam.includes(n));
+        const outro = faltam.find(n => n !== nome);
+        let opcoes = d.disponiveis.filter(n => n !== nome);
+        if (faltam.length === 2 && d.disponiveis.includes(outro)) opcoes = [outro];
+        const t = opcoes[rnd(opcoes.length)];
+        tx.update(ref, { jaSortearam: [...d.jaSortearam, nome], disponiveis: d.disponiveis.filter(n => n !== t), cofre: { ...d.cofre, [nome]: await trancar(t, pin, nome) } });
+        return t;
+      });
+      localStorage.setItem(chaveLocal, pin);
+      roleta(nome, tirado);
+    } catch (e) {
+      $('#erro').textContent = e.message === 'ja' ? 'Você já sorteou!' : 'Deu erro, tenta de novo.';
+      $('#ir').disabled = false;
+    }
+  };
+}
+
+if (gid && pTok) telaPessoal(); else if (gid) telaInicio(); else telaCriar();
 </script>
 </body>
 </html>
