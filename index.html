@@ -6,12 +6,25 @@
 <title>Amigo Secreto da Família</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0d0b10;--card:#17131c;--gold:#d8b46a;--red:#b3263a;--txt:#efe9f2;--mut:#9a90a3;--line:#2c2433}
+  :root{--bg:#120709;--card:#1c0d11;--gold:#e3c27a;--red:#b3263a;--green:#1f4d3a;--txt:#f5ece6;--mut:#b29a9a;--line:#3a1f26}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{min-height:100vh;background:radial-gradient(circle at 20% 0%,#2a1420 0%,transparent 50%),radial-gradient(circle at 90% 100%,#1c1a2e 0%,transparent 50%),var(--bg);color:var(--txt);font-family:Inter,sans-serif;display:flex;justify-content:center;align-items:center;padding:24px}
-  .card{width:100%;max-width:520px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:36px 28px;box-shadow:0 30px 80px #0008;text-align:center}
-  h1{font-family:'Playfair Display',serif;font-size:2.1rem;color:var(--gold);margin-bottom:6px}
-  h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:6px}
+  body{min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#4a1420 0%,transparent 60%),radial-gradient(circle at 0% 100%,#0f2a20 0%,transparent 45%),radial-gradient(circle at 100% 100%,#0f2a20 0%,transparent 45%),var(--bg);color:var(--txt);font-family:Inter,sans-serif;display:flex;justify-content:center;align-items:center;padding:24px;overflow-x:hidden}
+  #neve{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .card{position:relative;z-index:1;width:100%;max-width:520px;background:linear-gradient(180deg,#22100f 0%,var(--card) 100%);border:1px solid var(--line);border-radius:26px;padding:54px 28px 36px;box-shadow:0 30px 80px #000a,inset 0 1px 0 #ffffff10;text-align:center;overflow:hidden}
+  /* fita dourada cruzando o cartão */
+  .card::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:14px;transform:translateX(-50%);background:linear-gradient(90deg,#b8954e,var(--gold),#b8954e);opacity:.12}
+  .card::after{content:'';position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:70px;height:44px;background:radial-gradient(ellipse at 25% 60%,var(--gold) 0 40%,transparent 42%),radial-gradient(ellipse at 75% 60%,var(--gold) 0 40%,transparent 42%);filter:drop-shadow(0 3px 6px #0008)}
+  .card>*{position:relative}
+  .topo{font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:8px}
+  h1{font-family:'Playfair Display',serif;font-size:2.4rem;background:linear-gradient(180deg,#fff3d6,var(--gold));-webkit-background-clip:text;color:transparent;margin-bottom:8px}
+  h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);margin-bottom:8px}
+  .presente{font-size:0!important;width:120px;height:110px;margin:10px auto 24px;position:relative;animation:balanca 2.4s ease-in-out infinite}
+  .presente::before{content:'';position:absolute;bottom:0;left:10px;width:100px;height:72px;border-radius:8px;background:linear-gradient(90deg,transparent 42px,var(--gold) 42px 58px,transparent 58px),linear-gradient(135deg,#c8283f,#7d1526);box-shadow:0 12px 30px #b3263a55}
+  .presente::after{content:'';position:absolute;top:18px;left:2px;width:116px;height:24px;border-radius:6px;background:linear-gradient(90deg,transparent 50px,var(--gold) 50px 66px,transparent 66px),linear-gradient(135deg,#d93550,#8f1a2d);box-shadow:0 -14px 0 -4px transparent}
+  .presente.abre{animation:abre .7s ease forwards}
+  @keyframes balanca{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+  @keyframes abre{to{transform:scale(1.3) translateY(-10px);opacity:0}}
+  .nome{text-shadow:0 0 30px #e3c27a66}
   .sub{color:var(--mut);margin-bottom:22px;font-size:.95rem;line-height:1.5}
   textarea,input{width:100%;background:#0f0c13;border:1px solid var(--line);border-radius:14px;color:var(--txt);padding:14px;font:inherit}
   textarea{min-height:200px;resize:vertical}
@@ -35,6 +48,14 @@
 </style>
 </head>
 <body>
+<canvas id="neve"></canvas>
+<script>
+(()=>{const c=document.getElementById('neve'),x=c.getContext('2d');let f=[];
+function r(){c.width=innerWidth;c.height=innerHeight}r();addEventListener('resize',r);
+for(let i=0;i<90;i++)f.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2.2+.6,v:Math.random()*.6+.3,d:Math.random()*6});
+(function a(){x.clearRect(0,0,c.width,c.height);for(const p of f){p.y+=p.v;p.d+=.01;p.x+=Math.sin(p.d)*.4;if(p.y>c.height){p.y=-5;p.x=Math.random()*c.width}
+x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(255,240,220,'+(p.r/3.5)+')';x.fill()}requestAnimationFrame(a)})()})();
+</script>
 <div class="card" id="app"><p class="sub">Carregando...</p></div>
 
 <script type="module">
@@ -78,7 +99,7 @@ const rnd = n => crypto.getRandomValues(new Uint32Array(1))[0] % n;
 // ---------- organizador ----------
 function telaCriar(){
   tela(`
-    <h1>Amigo Secreto</h1>
+    <p class="topo">Natal em família</p><h1>Amigo Secreto</h1>
     <p class="sub">Digite o nome de cada pessoa da família, um por linha.</p>
     <textarea id="nomes" placeholder="Maria&#10;João&#10;Vó Lúcia&#10;..."></textarea>
     <button id="criar">Criar sorteio</button>
@@ -113,7 +134,7 @@ async function telaInicio(){
   dados = snap.data();
   const faltam = dados.nomes.filter(n => !dados.jaSortearam.includes(n));
   tela(`
-    <h1>Amigo Secreto</h1>
+    <p class="topo">Natal em família</p><h1>Amigo Secreto</h1>
     <p class="sub">${faltam.length ? 'Quem é você? Clique no seu nome.' : 'Todo mundo já sorteou! 🎉'}</p>
     <div class="nomes">${faltam.map(n => `<button data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div>
     ${dados.jaSortearam.length ? `<button class="sec" id="rever">Já sorteei, quero ver de novo</button>` : ''}
@@ -221,13 +242,13 @@ async function telaPessoal(){
     return;
   }
   tela(`
-    <h1>Olá, ${esc(nome)}!</h1>
+    <p class="topo">Amigo Secreto</p><h1>Olá, ${esc(nome)}!</h1>
     <p class="sub">Aperte o botão pra descobrir seu amigo secreto.<br>Não deixe ninguém olhar!</p>
     <div class="presente">🎁</div>
     <button id="ir">Sortear</button>
     <p class="erro" id="erro"></p>`);
   $('#ir').onclick = async () => {
-    $('#ir').disabled = true;
+    $('#ir').disabled = true; document.querySelector('.presente').classList.add('abre');
     const pin = b64(crypto.getRandomValues(new Uint8Array(16)));
     try {
       const ref = doc(db, 'sorteios', gid);
