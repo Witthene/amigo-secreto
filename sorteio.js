@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125133123';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125133520';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
@@ -53,7 +53,8 @@ async function revelar(tirado, dica, pool, suspense){
   window.som && som.revelacao();
   await sleep(600 + tirado.length * 100);
   confete();
-  await sleep(2400);
+  await sleep(1200);
+  await Promise.all([legenda('Shhh... não conta pra ninguém.', 2600), window.som && som.fala(3)]);
   document.body.classList.remove('cena'); document.body.classList.add('revelado');
   $('#etq').classList.add('mostra');
   window.som && som.subir();

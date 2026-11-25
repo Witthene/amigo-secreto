@@ -1,4 +1,4 @@
-import { ref, getDoc, setDoc, runTransaction, db, $, tela, esc, cabecalho } from './comum.js?v=1125133123';
+import { ref, getDoc, setDoc, runTransaction, db, $, tela, esc, cabecalho } from './comum.js?v=1125133520';
 
 const cap = n => String(n).toLocaleLowerCase('pt-BR').replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toLocaleUpperCase('pt-BR'));
 const HASH = '311f4d7334be0059d7f5ff9395196eec2c9651adb4ac9dadbaa4858ec2fdf5b5';
