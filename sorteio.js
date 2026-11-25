@@ -43,7 +43,6 @@ async function iniciar(){
     ${presente()}
     <div id="acao"></div>`);
 
-  if (d?.nomes?.length) etiquetas(d.nomes);
   if (!d || !d.nomes?.length) { $('#acao').innerHTML = `<p class="sub">O sorteio ainda não foi aberto.<br><b>Volte daqui a pouco.</b></p>`; return; }
 
   // já sorteou neste celular: mostra de novo com a dica atualizada

@@ -62,13 +62,13 @@
   textarea{width:100%}
 
   /* ---------- presente + etiquetas ---------- */
-  .palco{position:relative;width:min(100%,380px);height:370px;margin:10px auto 0}
+  .palco{position:relative;width:min(100%,380px);height:300px;margin:0 auto}
   .raios{position:absolute;left:50%;top:50%;width:560px;height:560px;transform:translate(-50%,-50%) scale(.2);opacity:0;pointer-events:none;
     background:repeating-conic-gradient(from 0deg,rgba(255,215,90,.35) 0 8deg,transparent 8deg 20deg);
     -webkit-mask:radial-gradient(circle,#000 0,transparent 60%);mask:radial-gradient(circle,#000 0,transparent 60%);transition:opacity .5s,transform .9s cubic-bezier(.2,.8,.2,1)}
   .halo{position:absolute;left:50%;top:55%;width:260px;height:260px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 65%)}
-  .sombra{position:absolute;left:50%;top:268px;width:170px;height:20px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(0,0,0,.35),transparent 70%);animation:sombra 3s ease-in-out infinite}
-  .caixa{position:absolute;left:50%;top:40px;width:220px;height:230px;margin-left:-110px;animation:flutua 3s ease-in-out infinite;z-index:2}
+  .sombra{position:absolute;left:50%;top:262px;width:170px;height:20px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(0,0,0,.35),transparent 70%);animation:sombra 3s ease-in-out infinite}
+  .caixa{position:absolute;left:50%;top:34px;width:220px;height:230px;margin-left:-110px;animation:flutua 3s ease-in-out infinite;z-index:2}
   .caixa svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 16px 18px rgba(0,0,0,.25))}
   #tampa{transform-origin:110px 96px;transition:transform .8s cubic-bezier(.3,1.4,.4,1),opacity .5s .35s}
   .palco.treme .caixa{animation:treme .11s linear infinite}
