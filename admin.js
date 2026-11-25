@@ -1,4 +1,4 @@
-import { ref, getDoc, setDoc, runTransaction, db, $, tela, esc, cabecalho } from './comum.js?v=1125131839';
+import { ref, getDoc, setDoc, runTransaction, db, $, tela, esc, cabecalho } from './comum.js?v=1125132552';
 
 const HASH = '311f4d7334be0059d7f5ff9395196eec2c9651adb4ac9dadbaa4858ec2fdf5b5';
 const sha = async s => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))), b => b.toString(16).padStart(2,'0')).join('');

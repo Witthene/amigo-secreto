@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125131839';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125132552';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
@@ -15,23 +15,46 @@ function etiquetas(nomes){
 const chaveLocal = r => 'amigo_sousa_' + r;
 const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 
+const legenda = async (txt, ms) => { const l = $('#legenda'); l.textContent = txt; l.classList.add('on'); await sleep(ms); l.classList.remove('on'); await sleep(500); };
+function escreverNome(nm, nome){
+  nm.innerHTML = [...nome].map((c, i) => c === ' ' ? ' ' : `<span style="--i:${i}">${esc(c)}</span>`).join('');
+  [...nome].forEach((c, i) => setTimeout(() => window.som && som.tic(), i * 100));
+}
+
 async function revelar(tirado, dica, pool, suspense){
-  const palco = $('#palco');
-  palco.classList.remove('treme'); palco.classList.add('aberto');
+  const palco = $('#palco'), nm = $('#nm');
   $('#acao').innerHTML = `<div class="etiqueta" id="etq"><small>Dica de presente</small><p id="dcp"></p></div>
     <p class="aviso">Guarde segredo até o grande dia.<br>Abra este link de novo neste celular para rever.</p>`;
   $('#dcp').textContent = dica || `${tirado} ainda não deixou uma dica. Volte mais tarde.`;
-  const nm = $('#nm');
-  await sleep(suspense ? 900 : 0);
-  if (suspense && pool.length > 1) {
-    nm.classList.add('girando');
-    let v = 70, i = rnd(pool.length);
-    while (v < 420) { nm.textContent = pool[i++ % pool.length]; await sleep(v); v *= 1.12; }
-    nm.classList.remove('girando');
+  if (!suspense) {
+    palco.classList.add('aberto'); nm.textContent = tirado;
+    document.body.classList.add('revelado'); $('#etq').classList.add('mostra');
+    return;
   }
-  nm.textContent = tirado;
+  // a cena
+  document.body.classList.add('cena');
+  window.som && (som.abaixar(), som.whoosh());
+  await sleep(1400);
+  await Promise.all([legenda('Entre todos os nomes da família...', 2600), window.som && som.fala(1)]);
+  window.som && som.batida(true);
+  palco.classList.add('treme');
+  await Promise.all([legenda('um foi guardado só para você.', 2800), window.som && som.fala(2)]);
+  await sleep(700);
+  palco.classList.remove('treme');
+  const r = $('.lacre').getBoundingClientRect();
+  window.faiscas && faiscas(r.left + r.width / 2, r.top + r.height / 2);
+  document.getElementById('flash').classList.add('on');
+  window.som && som.lacre();
+  palco.classList.add('aberto');
+  await sleep(2300);
+  escreverNome(nm, tirado);
+  window.som && som.revelacao();
+  await sleep(600 + tirado.length * 100);
+  confete();
+  await sleep(2400);
+  document.body.classList.remove('cena'); document.body.classList.add('revelado');
   $('#etq').classList.add('mostra');
-  if (suspense) confete();
+  window.som && som.subir();
 }
 async function iniciar(){
   const snap = await getDoc(ref);
@@ -63,7 +86,7 @@ async function iniciar(){
     if (!digitado) { $('#erro').textContent = 'Digite seu nome.'; return; }
     if (!nome) { $('#erro').textContent = 'Esse nome não está na lista. Escreva igual o organizador cadastrou.'; return; }
     $('#erro').textContent = '';
-    $('#ir').disabled = true; $('#palco').classList.add('treme');
+    $('#ir').disabled = true;
     try {
       const [{ t, dicaT, rodada }] = await Promise.all([runTransaction(db, async tx => {
         const x = (await tx.get(ref)).data();
@@ -80,11 +103,11 @@ async function iniciar(){
         if (dica) dicas[nome] = dica;
         tx.update(ref, { disponiveis: x.disponiveis.filter(n => n !== t), jaSortearam: [...ja, nome], dicas });
         return { t, dicaT: dicas[t], rodada: x.rodada };
-      }), sleep(1400)]);
+      })]);
       localStorage.setItem(chaveLocal(rodada), JSON.stringify({ t }));
       revelar(t, dicaT, d.nomes.filter(n => n !== nome), true);
     } catch (e) {
-      $('#palco').classList.remove('treme');
+      document.body.classList.remove('cena');
       $('#erro').textContent = e.message === 'ja' ? `${nome} já fez o sorteio.` : e.message === 'vazio' ? 'Não sobrou nome pra sortear. Avise o organizador.' : 'Deu um probleminha, tenta de novo.';
       $('#ir').disabled = false;
     }
