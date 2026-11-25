@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125133939';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125134620';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
@@ -29,33 +29,41 @@ async function revelar(tirado, dica, pool, suspense){
     <p class="aviso">Guarde segredo até o grande dia.<br>Abra este link de novo neste celular para rever.</p>`;
   $('#dcp').textContent = dica || `${tirado} ainda não deixou uma dica. Volte mais tarde.`;
   if (!suspense) {
-    palco.classList.add('aberto'); nm.textContent = tirado;
+    palco.classList.add('aberto', 'sobe', 'frente'); nm.textContent = tirado;
     document.body.classList.add('revelado'); $('#etq').classList.add('mostra');
     return;
   }
-  // a cena
+  // 1. a cena se prepara
   document.body.classList.add('cena');
   window.som && (som.abaixar(), som.whoosh());
-  await sleep(1400);
-  await Promise.all([legenda('Entre todos os nomes da família...', 2600), window.som && som.fala(1)]);
+  await sleep(1800);
+  // 2. o narrador
+  await Promise.all([legenda('Entre todos os nomes da família...', 2800), window.som && som.fala(1)]);
   window.som && som.batida(true);
   palco.classList.add('treme');
-  await Promise.all([legenda('um foi guardado só para você.', 2800), window.som && som.fala(2)]);
-  await sleep(700);
+  await Promise.all([legenda('um foi guardado só para você.', 3000), window.som && som.fala(2)]);
+  await sleep(900);
+  // 3. o lacre se parte
   palco.classList.remove('treme');
   const r = $('.lacre').getBoundingClientRect();
   window.faiscas && faiscas(r.left + r.width / 2, r.top + r.height / 2);
   document.getElementById('flash').classList.add('on');
   window.som && som.lacre();
   palco.classList.add('aberto');
-  await sleep(2300);
+  // 4. o cartão sai do envelope e vem pra frente
+  await sleep(1000); palco.classList.add('sobe');
+  await sleep(1750); palco.classList.add('frente');
+  await sleep(700);
+  // 5. o nome
   escreverNome(nm, tirado);
   window.som && som.revelacao();
-  await sleep(600 + tirado.length * 100);
+  await sleep(900 + tirado.length * 100);
   confete();
-  await sleep(1200);
-  await Promise.all([legenda('Shhh... não conta pra ninguém.', 2600), window.som && som.fala(3)]);
+  await sleep(1400);
+  await Promise.all([legenda('Shhh... não conta pra ninguém.', 2800), window.som && som.fala(3)]);
+  // 6. volta pra tela calma com a dica
   document.body.classList.remove('cena'); document.body.classList.add('revelado');
+  await sleep(600);
   $('#etq').classList.add('mostra');
   window.som && som.subir();
 }

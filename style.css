@@ -254,3 +254,31 @@ body.revelado .halo{filter:blur(24px);bottom:20px;background:radial-gradient(ell
 .etiqueta small{font-size:.66rem;letter-spacing:.26em}
 .etiqueta p{font:italic 500 1.45rem/1.35 'Cormorant Garamond',serif;color:var(--gold2);margin-top:10px}
 body.revelado .aviso{opacity:0;animation:aparece 1.2s ease 2.4s forwards}
+/* ===== coreografia suave (substitui as animações anteriores) ===== */
+:root{--suave:cubic-bezier(.65,0,.35,1);--solta:cubic-bezier(.22,1,.36,1)}
+.palco.treme .env{animation:batimento .9s ease-in-out infinite}
+@keyframes batimento{0%,100%{scale:1}14%{scale:1.025}28%{scale:1}42%{scale:1.018}}
+.palco.treme .lacre{filter:drop-shadow(0 5px 6px rgba(0,0,0,.7)) drop-shadow(0 0 18px rgba(241,226,189,.55));transition:filter 1s}
+.env-aba{transition:transform 1.4s var(--suave),z-index 0s .7s}
+.palco.aberto .env-aba{transform:rotateX(180deg)}
+.lacre{transition:opacity .5s ease,transform .7s var(--solta),filter 1s}
+.palco.aberto .lacre{opacity:0;transform:scale(1.6)}
+.palco.aberto .env-cartao,.palco .env-cartao{animation:none!important}
+.env-cartao{transition:transform 1.8s var(--suave),box-shadow 1.2s ease}
+.palco.sobe .env-cartao{transform:translateY(-200px)}
+.palco.frente .env-cartao{z-index:8;transform:translateY(-112px) scale(1.08);transition:transform 1.4s var(--solta),box-shadow 1.2s ease;
+  box-shadow:inset 0 0 0 1px rgba(142,113,64,.25),inset 0 0 0 5px #f6f0e3,inset 0 0 0 6px rgba(201,169,110,.55),0 30px 60px rgba(0,0,0,.7),0 0 70px rgba(241,226,189,.28)}
+body.revelado .palco .env-cartao{transition:transform 1.6s var(--suave),box-shadow 1.2s ease}
+body.revelado .palco.frente .env-cartao,body.revelado .palco.aberto .env-cartao{z-index:8;transform:translateY(14px) scale(1.18)}
+body.revelado .palco{transition:height 1.6s var(--suave)}
+.env-fundo,.env-frente,.env-aba,.chao{transition:opacity 1.4s ease,transform 1.6s var(--suave)}
+body.revelado .env-aba{transition:opacity 1.4s ease}
+.palco{transition:transform 3.4s var(--suave)}
+#acao{transition:opacity 1.2s ease,filter 1.2s ease}
+.etiqueta{transition:opacity 1.2s ease .4s,transform 1.4s var(--solta) .4s}
+.env-cartao small,.env-cartao .filete{opacity:0;transition:opacity 1s ease}
+.palco.frente .env-cartao small,.palco.frente .env-cartao .filete,body.revelado .env-cartao small,body.revelado .env-cartao .filete{opacity:1}
+.palco.sobe .env-cartao{transform:translateY(-172px)}
+.palco.frente .env-aba{opacity:0;transition:transform 1.4s var(--suave),opacity .8s ease}
+body.cena .palco{transform:translateY(-2vh) scale(1.18)}
+@media(max-width:420px){body.cena .palco{transform:translateY(0) scale(1.08)}}
