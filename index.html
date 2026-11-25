@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1125140258">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1125140725">
 </head>
 <body>
 <div id="abertura" class="abertura">
-  <video id="fundoVid" autoplay loop src="midia/abertura.mp4?v=1125140258" muted playsinline preload="auto" aria-hidden="true"></video>
-  <video id="vid" src="midia/abertura.mp4?v=1125140258" playsinline preload="auto" poster="midia/capa.jpg"></video>
+  <video id="fundoVid" autoplay loop src="midia/abertura.mp4?v=1125140725" muted playsinline preload="auto" aria-hidden="true"></video>
+  <video id="vid" src="midia/abertura.mp4?v=1125140725" playsinline preload="auto" poster="midia/capa.jpg"></video>
   <div class="capaIntro" id="capaIntro">
     <canvas id="poeiraIntro"></canvas>
     <p class="kicker">Família Sousa apresenta</p>
@@ -120,8 +120,8 @@ document.body.classList.add('intro');
       <circle cx="30" cy="30" r="17" fill="url(#ceraIn)"/>
       <circle cx="30" cy="30" r="17" fill="none" stroke="#fff3d1" stroke-opacity=".55" stroke-width=".8"/>
       <circle cx="30" cy="30" r="14.5" fill="none" stroke="#6e5428" stroke-opacity=".6" stroke-width=".6" stroke-dasharray="1.2 1.6"/>
-      <text x="30" y="37.5" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-weight="600" font-size="22" fill="#5a4420">S</text>
-      <text x="29.4" y="36.8" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-weight="600" font-size="22" fill="#fff3d1" opacity=".35">S</text>
+      <text x="30" y="37.5" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="600" font-size="19" fill="#5a4420">S</text>
+      <text x="29.4" y="36.8" text-anchor="middle" font-family="Montserrat,sans-serif" font-weight="600" font-size="19" fill="#fff3d1" opacity=".35">S</text>
       <ellipse cx="22" cy="15" rx="9" ry="4" fill="#fff" opacity=".35" transform="rotate(-25 22 15)"/>
     </svg></div>
   </div>
@@ -154,7 +154,7 @@ let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
-<script type="module" src="audio.js?v=1125140258"></script>
-<script type="module" src="sorteio.js?v=1125140258"></script>
+<script type="module" src="audio.js?v=1125140725"></script>
+<script type="module" src="sorteio.js?v=1125140725"></script>
 </body>
 </html>

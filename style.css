@@ -292,3 +292,24 @@ body.cena .palco{transform:translateY(7vh) scale(1.1)}
 /* sem preserve-3d: a ordem das camadas (z-index) passa a valer */
 .env{transform-style:flat!important}
 .env-aba{backface-visibility:visible}
+
+/* ===== polimento final: tipografia de forma ===== */
+body,.btn,.form input,.form textarea,.addrow input,.linha button,.pular,.status small,.etiqueta p,.legenda,.anoIntro,.dicaPlay,.env-cartao .nome{font-family:'Montserrat',sans-serif}
+h1{font-family:'Montserrat',sans-serif;font-weight:300;font-size:2.1rem;line-height:1.15;letter-spacing:.32em;text-transform:uppercase;margin-right:-.32em}
+h1 em{font-style:normal;font-weight:600;letter-spacing:.32em;margin-top:6px}
+.capaIntro h1{font-size:2.9rem;letter-spacing:.3em;margin-right:-.3em}
+@keyframes focar{0%{opacity:0;filter:blur(18px);transform:scale(1.06);letter-spacing:.5em}100%{opacity:1;filter:none;transform:none;letter-spacing:.3em}}
+.kicker{font-weight:500;letter-spacing:.45em;font-size:.68rem}
+.legenda{font-weight:300;font-style:normal;font-size:1.35rem;letter-spacing:.04em}
+.anoIntro{font-weight:300;font-style:normal;font-size:1rem;letter-spacing:.08em}
+.etiqueta p{font-style:normal;font-weight:500;font-size:1.2rem;color:var(--gold2)}
+.env-cartao .nome{font-weight:700;letter-spacing:-.01em}
+.env-cartao small,.etiqueta small{font-weight:600}
+.status div{font-family:'Montserrat',sans-serif;font-weight:300;font-size:2rem}
+.btn{font-weight:700;letter-spacing:.22em;font-size:.92rem}
+.lacre svg text{font-family:'Montserrat',sans-serif}
+.sub,.aviso{font-weight:400}
+.dicaPlay{font-weight:500;letter-spacing:.02em}
+@media(max-width:420px){h1{font-size:1.7rem}.capaIntro h1{font-size:2.2rem}.legenda{font-size:1.15rem}}
+.anoIntro{font-size:.92rem;letter-spacing:.04em;max-width:90vw;text-wrap:balance}
+.form label{text-wrap:balance}
