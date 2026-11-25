@@ -24,8 +24,8 @@ function montar(palco){
   cena.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
   const cam = new THREE.PerspectiveCamera(32, W / H, 0.1, 100);
-  cam.position.set(0, 2.6, 6.4);
-  cam.lookAt(0, 0.55, 0);
+  cam.position.set(0, 2.5, 7.4);
+  cam.lookAt(0, 0.85, 0);
 
   // luzes
   cena.add(new THREE.HemisphereLight(0xfff4e0, 0x1b7a43, 0.6));
@@ -49,7 +49,7 @@ function montar(palco){
 
   // materiais
   const papel = new THREE.MeshPhysicalMaterial({ color: 0xe0242c, roughness: 0.35, clearcoat: 1, clearcoatRoughness: 0.15, sheen: 0.4, sheenColor: 0xff8080 });
-  const fita = new THREE.MeshPhysicalMaterial({ color: 0xffc72c, metalness: 0.55, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.1 });
+  const fita = new THREE.MeshPhysicalMaterial({ color: 0xffd23f, metalness: 0.35, roughness: 0.25, clearcoat: 1, clearcoatRoughness: 0.08, emissive: 0x6b4500, emissiveIntensity: 0.35 });
   const dentro = new THREE.MeshStandardMaterial({ color: 0x3a0508, roughness: 0.9 });
 
   const sombra = m => { m.castShadow = true; m.receiveShadow = true; return m; };
