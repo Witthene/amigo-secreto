@@ -33,7 +33,7 @@ async function painel(){
 
   // qualquer mudança na lista zera o sorteio pra não ficar ninguém de fora
   const salvar = async nomes => {
-    await setDoc(ref, { nomes, disponiveis: [...nomes], rodada: (d.rodada || 0) + 1, atualizado: Date.now() });
+    await setDoc(ref, { nomes, disponiveis: [...nomes], jaSortearam: [], dicas: d.dicas || {}, rodada: (d.rodada || 0) + 1, atualizado: Date.now() });
     painel();
   };
   const add = () => {

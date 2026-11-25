@@ -13,13 +13,14 @@ function etiquetas(nomes){
   $('#palco').insertAdjacentHTML('beforeend', tags);
 }
 const chaveLocal = r => 'amigo_sousa_' + r;
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 
-async function revelar(tirado, pool, suspense){
+async function revelar(tirado, dica, pool, suspense){
   const palco = $('#palco');
   palco.classList.remove('treme'); palco.classList.add('aberto');
-  $('#acao').innerHTML = `<div class="etiqueta" id="etq"><small>Você tirou</small><div class="nome" id="nm"></div></div>
-    <p class="aviso">Guarde segredo até o grande dia.<br>Se esquecer, é só abrir este link de novo neste celular.</p>
-    <button class="mini" id="eu">Tirei meu próprio nome</button>`;
+  $('#acao').innerHTML = `<div class="etiqueta" id="etq"><small>Você tirou</small><div class="nome" id="nm"></div>
+      <div class="dica hide" id="dc"><small>Dica de presente</small><p></p></div></div>
+    <p class="aviso">Guarde segredo até o grande dia.<br>Abra este link de novo neste celular pra rever e ver se a dica chegou.</p>`;
   await sleep(350); $('#etq').classList.add('mostra');
   const nm = $('#nm');
   if (suspense && pool.length > 1) {
@@ -29,29 +30,10 @@ async function revelar(tirado, pool, suspense){
     nm.classList.remove('girando');
   }
   nm.textContent = tirado;
-  confete();
-  $('#eu').onclick = () => trocar(tirado);
-}
-
-// se a pessoa tirou ela mesma, devolve o nome e tira outro
-async function trocar(meu){
-  $('#eu').disabled = true;
-  try {
-    const { novo, rodada } = await runTransaction(db, async tx => {
-      const d = (await tx.get(ref)).data();
-      const opcoes = d.disponiveis.filter(n => n !== meu);
-      if (!opcoes.length) throw new Error('vazio');
-      const novo = opcoes[rnd(opcoes.length)];
-      tx.update(ref, { disponiveis: [...d.disponiveis.filter(n => n !== novo), meu] });
-      return { novo, rodada: d.rodada };
-    });
-    localStorage.setItem(chaveLocal(rodada), novo);
-    $('#palco').classList.remove('aberto');
-    await sleep(500);
-    revelar(novo, [novo], false);
-  } catch (e) {
-    $('#eu').outerHTML = `<p class="erro">${e.message === 'vazio' ? 'Não sobrou outro nome. Avise quem organizou pra refazer o sorteio.' : 'Deu um probleminha, tenta de novo.'}</p>`;
-  }
+  const dc = $('#dc');
+  dc.querySelector('p').textContent = dica || `${tirado} ainda não deixou uma dica. Volte depois!`;
+  dc.classList.remove('hide');
+  if (suspense) confete();
 }
 
 async function iniciar(){
@@ -64,37 +46,52 @@ async function iniciar(){
   if (d?.nomes?.length) etiquetas(d.nomes);
   if (!d || !d.nomes?.length) { $('#acao').innerHTML = `<p class="sub">O sorteio ainda não foi aberto.<br><b>Volte daqui a pouco.</b></p>`; return; }
 
-  const salvo = localStorage.getItem(chaveLocal(d.rodada));
-  if (salvo) return revelar(salvo, [salvo], false);
-
-  if (!d.disponiveis.length) { $('#acao').innerHTML = `<p class="sub">Todos os nomes já foram sorteados.</p>`; return; }
+  // já sorteou neste celular: mostra de novo com a dica atualizada
+  const salvo = JSON.parse(localStorage.getItem(chaveLocal(d.rodada)) || 'null');
+  if (salvo?.t) return revelar(salvo.t, d.dicas?.[salvo.t], [], false);
 
   $('#acao').innerHTML = `
-    <p class="sub"><b>Toque em sortear</b> e descubra quem é o seu amigo secreto.<br>Não deixe ninguém espiar!</p>
+    <div class="form">
+      <label>Seu nome</label>
+      <input id="eu" placeholder="Digite seu nome" autocomplete="off">
+      <label>O que você gostaria de ganhar?</label>
+      <textarea id="dica" maxlength="200" placeholder="Ex.: livro, perfume, algo de cozinha, tamanho M..."></textarea>
+    </div>
     <button class="btn" id="ir">sortear <span class="dado"></span></button>
     <p class="erro" id="erro"></p>`;
 
-  const abrir = async () => {
-    if (!$('#ir') || $('#ir').disabled) return;
+  $('#ir').onclick = async () => {
+    const digitado = norm($('#eu').value);
+    const nome = d.nomes.find(n => norm(n) === digitado);
+    const dica = $('#dica').value.trim();
+    if (!digitado) { $('#erro').textContent = 'Digite seu nome.'; return; }
+    if (!nome) { $('#erro').textContent = 'Esse nome não está na lista. Escreva igual o organizador cadastrou.'; return; }
+    $('#erro').textContent = '';
     $('#ir').disabled = true; $('#palco').classList.add('treme');
     try {
-      const [{ t, rodada }] = await Promise.all([runTransaction(db, async tx => {
+      const [{ t, dicaT, rodada }] = await Promise.all([runTransaction(db, async tx => {
         const x = (await tx.get(ref)).data();
-        if (!x.disponiveis.length) throw new Error('vazio');
-        const t = x.disponiveis[rnd(x.disponiveis.length)];
-        tx.update(ref, { disponiveis: x.disponiveis.filter(n => n !== t) });
-        return { t, rodada: x.rodada };
+        const ja = x.jaSortearam || [];
+        if (ja.includes(nome)) throw new Error('ja');
+        const faltam = x.nomes.filter(n => !ja.includes(n));
+        const outro = faltam.find(n => n !== nome);
+        let opcoes = x.disponiveis.filter(n => n !== nome);
+        // se só faltam 2, garante que o último não fique com o próprio nome
+        if (faltam.length === 2 && x.disponiveis.includes(outro)) opcoes = [outro];
+        if (!opcoes.length) throw new Error('vazio');
+        const t = opcoes[rnd(opcoes.length)];
+        const dicas = { ...(x.dicas || {}) };
+        if (dica) dicas[nome] = dica;
+        tx.update(ref, { disponiveis: x.disponiveis.filter(n => n !== t), jaSortearam: [...ja, nome], dicas });
+        return { t, dicaT: dicas[t], rodada: x.rodada };
       }), sleep(1400)]);
-      localStorage.setItem(chaveLocal(rodada), t);
-      revelar(t, d.nomes, true);
+      localStorage.setItem(chaveLocal(rodada), JSON.stringify({ t }));
+      revelar(t, dicaT, d.nomes.filter(n => n !== nome), true);
     } catch (e) {
       $('#palco').classList.remove('treme');
-      $('#erro').textContent = e.message === 'vazio' ? 'Todos os nomes já foram sorteados.' : 'Deu um probleminha, tenta de novo.';
+      $('#erro').textContent = e.message === 'ja' ? `${nome} já fez o sorteio.` : e.message === 'vazio' ? 'Não sobrou nome pra sortear. Avise o organizador.' : 'Deu um probleminha, tenta de novo.';
       $('#ir').disabled = false;
     }
   };
-  $('#ir').onclick = abrir;
-  $('#palco').onclick = abrir;
-  $('#palco').style.cursor = 'pointer';
 }
 iniciar();
