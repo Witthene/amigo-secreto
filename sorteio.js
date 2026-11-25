@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125133520';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125133939';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
@@ -25,7 +25,7 @@ function escreverNome(nm, nome){
 async function revelar(tirado, dica, pool, suspense){
   tirado = cap(tirado); pool = pool.map(cap);
   const palco = $('#palco'), nm = $('#nm');
-  $('#acao').innerHTML = `<div class="etiqueta" id="etq"><small>Dica de presente</small><p id="dcp"></p></div>
+  $('#acao').innerHTML = `<div class="etiqueta" id="etq"><span class="orn">✦</span><small>O que essa pessoa gostaria de ganhar</small><p id="dcp"></p></div>
     <p class="aviso">Guarde segredo até o grande dia.<br>Abra este link de novo neste celular para rever.</p>`;
   $('#dcp').textContent = dica || `${tirado} ainda não deixou uma dica. Volte mais tarde.`;
   if (!suspense) {
