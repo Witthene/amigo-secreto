@@ -4,87 +4,219 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amigo Secreto da Família Sousa</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0b0a0d;--card:#141218;--gold:#e2c27c;--red:#c9a24e;--green:#1c1a22;--txt:#f2eee6;--mut:#a39d93;--line:#2a2630}
+  :root{
+    --bg:#0c0a09; --ink:#f4ede1; --mut:#a89e8f; --gold:#d9b46c; --gold2:#f6e3b4; --gold3:#8f6b2e;
+    --wine:#3b0f19; --wine2:#5c1726; --line:rgba(217,180,108,.28);
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#2a2318 0%,transparent 55%),radial-gradient(circle at 100% 100%,#1e1a26 0%,transparent 50%),var(--bg);color:var(--txt);font-family:Inter,sans-serif;display:flex;justify-content:center;align-items:center;padding:24px;overflow-x:hidden}
-  #neve{position:fixed;inset:0;pointer-events:none;z-index:0}
-  .card{position:relative;z-index:1;width:100%;max-width:520px;background:linear-gradient(180deg,#1a171f 0%,var(--card) 100%);border:1px solid var(--line);border-radius:26px;padding:54px 28px 36px;box-shadow:0 30px 80px #000a,inset 0 1px 0 #ffffff10;text-align:center;overflow:hidden}
-  /* fita dourada cruzando o cartão */
-  .card::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:14px;transform:translateX(-50%);background:linear-gradient(90deg,#b8954e,var(--gold),#b8954e);opacity:.12}
-  .card::after{content:'';position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:70px;height:44px;background:radial-gradient(ellipse at 25% 60%,var(--gold) 0 40%,transparent 42%),radial-gradient(ellipse at 75% 60%,var(--gold) 0 40%,transparent 42%);filter:drop-shadow(0 3px 6px #0008)}
-  .card>*{position:relative}
-  .topo{font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:8px}
-  h1{font-family:'Playfair Display',serif;font-size:2.4rem;background:linear-gradient(180deg,#fff3d6,var(--gold));-webkit-background-clip:text;color:transparent;margin-bottom:8px}
-  h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);margin-bottom:8px}
-  .presente{font-size:0!important;width:120px;height:110px;margin:10px auto 24px;position:relative;animation:balanca 2.4s ease-in-out infinite}
-  .presente::before{content:'';position:absolute;bottom:0;left:10px;width:100px;height:72px;border-radius:8px;background:linear-gradient(90deg,transparent 42px,var(--gold) 42px 58px,transparent 58px),linear-gradient(135deg,#2b2633,#17141c);box-shadow:0 12px 30px #e2c27c22}
-  .presente::after{content:'';position:absolute;top:18px;left:2px;width:116px;height:24px;border-radius:6px;background:linear-gradient(90deg,transparent 50px,var(--gold) 50px 66px,transparent 66px),linear-gradient(135deg,#363040,#1e1a24);box-shadow:0 -14px 0 -4px transparent}
-  .presente.abre{animation:abre .7s ease forwards}
-  @keyframes balanca{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
-  @keyframes abre{to{transform:scale(1.3) translateY(-10px);opacity:0}}
-  .nome{text-shadow:0 0 30px #e3c27a66}
-  .sub{color:var(--mut);margin-bottom:22px;font-size:.95rem;line-height:1.5}
-  textarea,input{width:100%;background:#0f0c13;border:1px solid var(--line);border-radius:14px;color:var(--txt);padding:14px;font:inherit}
-  textarea{min-height:200px;resize:vertical}
-  input{text-align:center;font-size:1.6rem;letter-spacing:.5em}
-  button{margin-top:16px;width:100%;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,#e8c878,#a8823a);color:#1a1404;color:#fff;font-weight:600;font-size:1rem;cursor:pointer;transition:transform .15s,opacity .15s}
-  button:hover{transform:translateY(-2px)}
-  button:disabled{opacity:.5;cursor:default;transform:none}
-  button.sec{background:#2c2433}
-  .nomes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .nomes button{margin:0;padding:14px 10px;background:#0f0c13;border:1px solid var(--line)}
-  .nomes button:hover{border-color:var(--gold)}
-  .roleta{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--mut);height:70px;line-height:70px;margin:20px 0}
-  .nome{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--gold);margin:14px 0;animation:surge .8s ease}
-  @keyframes surge{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
-  .presente{font-size:4rem;margin:6px 0 10px}
-  .aviso{color:var(--mut);font-size:.85rem;margin-top:16px;line-height:1.5}
-  .link{word-break:break-all;background:#0f0c13;border:1px dashed var(--gold);border-radius:12px;padding:12px;margin-top:16px;font-size:.85rem;color:var(--gold)}
-  .erro{color:#ff7a8a;margin-top:12px;font-size:.9rem}
+  html,body{height:100%}
+  body{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px 18px;
+    color:var(--ink);font-family:Manrope,sans-serif;overflow-x:hidden;
+    background:
+      radial-gradient(60% 45% at 50% 0%, rgba(217,180,108,.16), transparent 70%),
+      radial-gradient(50% 40% at 50% 100%, rgba(92,23,38,.45), transparent 70%),
+      var(--bg);
+  }
+  /* grão de papel */
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.08;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #brilhos{position:fixed;inset:0;pointer-events:none;z-index:0}
+
+  /* ---------- convite ---------- */
+  .convite{position:relative;z-index:1;width:100%;max-width:460px;padding:56px 34px 40px;text-align:center;
+    background:linear-gradient(170deg,#191513 0%,#120f0e 60%,#0f0c0c 100%);
+    border-radius:4px;box-shadow:0 40px 100px rgba(0,0,0,.7),0 0 0 1px rgba(217,180,108,.12)}
+  .convite::before{content:'';position:absolute;inset:12px;border:1px solid var(--line);pointer-events:none}
+  .convite::after{content:'';position:absolute;inset:17px;border:1px solid rgba(217,180,108,.12);pointer-events:none}
+  .canto{position:absolute;width:26px;height:26px;border-color:var(--gold);border-style:solid;opacity:.85}
+  .canto.a{top:8px;left:8px;border-width:2px 0 0 2px}.canto.b{top:8px;right:8px;border-width:2px 2px 0 0}
+  .canto.c{bottom:8px;left:8px;border-width:0 0 2px 2px}.canto.d{bottom:8px;right:8px;border-width:0 2px 2px 0}
+
+  .selo{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;
+    background:radial-gradient(circle at 35% 30%,#7a2235,var(--wine) 70%);box-shadow:0 6px 18px rgba(0,0,0,.6),inset 0 2px 3px rgba(255,255,255,.15),inset 0 -3px 6px rgba(0,0,0,.5);
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:2.1rem;color:var(--gold2);text-shadow:0 1px 0 rgba(0,0,0,.6)}
+  .selo::after{content:'';position:absolute}
+  .kicker{font-size:.68rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.7rem;line-height:1.02;letter-spacing:-.01em}
+  h1 em{display:block;font-style:italic;font-size:1.15em;
+    background:linear-gradient(180deg,var(--gold2),var(--gold) 55%,var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .divisor{display:flex;align-items:center;gap:12px;margin:22px auto;max-width:220px;color:var(--gold)}
+  .divisor::before,.divisor::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .divisor::after{background:linear-gradient(270deg,transparent,var(--gold))}
+  .divisor span{font-size:.7rem}
+  .sub{color:var(--mut);font-size:.95rem;line-height:1.65;margin-bottom:24px}
+  .sub b{color:var(--ink);font-weight:500}
+
+  textarea{width:100%;min-height:190px;resize:vertical;padding:16px;border-radius:2px;font:inherit;font-size:1rem;line-height:1.7;
+    background:rgba(0,0,0,.35);color:var(--ink);border:1px solid var(--line);outline:none;transition:border-color .2s}
+  textarea:focus{border-color:var(--gold)}
+  textarea::placeholder{color:#5f574d}
+
+  .btn{position:relative;margin-top:20px;width:100%;padding:17px 20px;border:none;border-radius:2px;cursor:pointer;overflow:hidden;
+    font:700 .8rem Manrope,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#1d1408;
+    background:linear-gradient(180deg,var(--gold2),var(--gold) 45%,#b38a45);box-shadow:0 10px 30px rgba(217,180,108,.25),inset 0 1px 0 rgba(255,255,255,.6);transition:transform .2s,box-shadow .2s}
+  .btn::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:reflexo 3.5s ease-in-out infinite}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(217,180,108,.35),inset 0 1px 0 rgba(255,255,255,.6)}
+  .btn:disabled{opacity:.6;cursor:default;transform:none}
+  @keyframes reflexo{0%,60%{left:-60%}100%{left:130%}}
+
+  .lista{display:flex;flex-direction:column;text-align:left;border-top:1px solid var(--line)}
+  .linha{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 2px;border-bottom:1px solid var(--line)}
+  .linha span{font-family:'Cormorant Garamond',serif;font-size:1.35rem}
+  .linha button{flex:none;padding:9px 14px;border-radius:2px;cursor:pointer;background:transparent;color:var(--gold);border:1px solid var(--line);
+    font:700 .62rem Manrope,sans-serif;letter-spacing:.22em;text-transform:uppercase;transition:all .2s}
+  .linha button:hover{border-color:var(--gold);background:rgba(217,180,108,.08)}
+  .linha button.ok{color:#9fd8b0;border-color:rgba(159,216,176,.4)}
+  .aviso{color:var(--mut);font-size:.8rem;line-height:1.6;margin-top:22px;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.05rem}
+  .erro{color:#ff8f9c;margin-top:12px;font-size:.85rem}
+
+  /* ---------- presente ---------- */
+  .palco{position:relative;width:220px;height:230px;margin:4px auto 6px}
+  .raios{position:absolute;left:50%;top:52%;width:520px;height:520px;transform:translate(-50%,-50%) scale(.2);opacity:0;pointer-events:none;
+    background:repeating-conic-gradient(from 0deg,rgba(246,227,180,.22) 0 6deg,transparent 6deg 18deg);
+    -webkit-mask:radial-gradient(circle,#000 0,transparent 62%);mask:radial-gradient(circle,#000 0,transparent 62%);transition:opacity .6s,transform 1s cubic-bezier(.2,.8,.2,1)}
+  .halo{position:absolute;left:50%;top:60%;width:240px;height:240px;transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(circle,rgba(217,180,108,.28),transparent 65%);filter:blur(6px);animation:pulsa 3s ease-in-out infinite}
+  .sombra{position:absolute;left:50%;bottom:2px;width:150px;height:18px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(rgba(0,0,0,.7),transparent 70%);animation:sombra 3.2s ease-in-out infinite}
+  .caixa{position:absolute;inset:0;animation:flutua 3.2s ease-in-out infinite}
+  .caixa svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 18px 24px rgba(0,0,0,.55))}
+  #tampa{transform-origin:110px 96px;transition:transform .9s cubic-bezier(.3,1.4,.4,1),opacity .6s .4s}
+  .palco.treme .caixa{animation:treme .12s linear infinite}
+  .palco.aberto .caixa{animation:none}
+  .palco.aberto #tampa{transform:translate(30px,-120px) rotate(24deg);opacity:0}
+  .palco.aberto .raios{opacity:1;transform:translate(-50%,-50%) scale(1);animation:gira 14s linear infinite}
+  .palco.aberto .halo{background:radial-gradient(circle,rgba(246,227,180,.6),transparent 65%)}
+  @keyframes flutua{0%,100%{transform:translateY(0) rotate(-1.2deg)}50%{transform:translateY(-10px) rotate(1.2deg)}}
+  @keyframes sombra{0%,100%{transform:translateX(-50%) scale(1);opacity:1}50%{transform:translateX(-50%) scale(.82);opacity:.6}}
+  @keyframes pulsa{0%,100%{opacity:.7}50%{opacity:1}}
+  @keyframes treme{0%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}100%{transform:rotate(-3deg)}}
+  @keyframes gira{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+  /* ---------- etiqueta com o nome ---------- */
+  .etiqueta{position:relative;margin:8px auto 0;max-width:320px;padding:26px 22px 24px;opacity:0;transform:translateY(24px) scale(.96);
+    background:linear-gradient(180deg,#f6ecd6,#e9d9b6);color:#2a1b12;border-radius:3px;box-shadow:0 20px 50px rgba(0,0,0,.6);
+    transition:all .8s cubic-bezier(.2,.9,.2,1)}
+  .etiqueta.mostra{opacity:1;transform:none}
+  .etiqueta::before{content:'';position:absolute;top:10px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#0c0a09;box-shadow:inset 0 1px 2px rgba(0,0,0,.6)}
+  .etiqueta small{display:block;margin-top:10px;font-size:.62rem;letter-spacing:.38em;text-transform:uppercase;color:#8a6a3a}
+  .etiqueta .nome{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:2.9rem;line-height:1.1;margin-top:6px;color:#3b0f19;min-height:3.2rem}
+  .etiqueta .nome.girando{filter:blur(1.2px);opacity:.55}
   .hide{display:none!important}
-  .prog{color:var(--mut);font-size:.85rem;margin-top:18px}
+  @media(max-width:420px){h1{font-size:2.25rem}.convite{padding:50px 24px 34px}}
 </style>
 </head>
 <body>
-<canvas id="neve"></canvas>
+<canvas id="brilhos"></canvas>
+
+<main class="convite">
+  <i class="canto a"></i><i class="canto b"></i><i class="canto c"></i><i class="canto d"></i>
+  <div id="app"><p class="sub">Carregando...</p></div>
+</main>
+
+<template id="tplPresente">
+  <div class="palco" id="palco">
+    <div class="raios"></div><div class="halo"></div><div class="sombra"></div>
+    <div class="caixa">
+      <svg viewBox="0 0 220 230">
+        <defs>
+          <linearGradient id="gCaixa" x1="0" x2="1">
+            <stop offset="0" stop-color="#2a0a12"/><stop offset=".45" stop-color="#5c1726"/><stop offset=".55" stop-color="#4a1220"/><stop offset="1" stop-color="#22080f"/>
+          </linearGradient>
+          <linearGradient id="gTampa" x1="0" x2="1">
+            <stop offset="0" stop-color="#3a0e18"/><stop offset=".45" stop-color="#7a2235"/><stop offset=".55" stop-color="#651c2c"/><stop offset="1" stop-color="#2e0b13"/>
+          </linearGradient>
+          <linearGradient id="gFita" x1="0" x2="1">
+            <stop offset="0" stop-color="#8f6b2e"/><stop offset=".35" stop-color="#f6e3b4"/><stop offset=".5" stop-color="#d9b46c"/><stop offset="1" stop-color="#8f6b2e"/>
+          </linearGradient>
+          <linearGradient id="gFitaV" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f6e3b4"/><stop offset=".5" stop-color="#d9b46c"/><stop offset="1" stop-color="#9c7635"/>
+          </linearGradient>
+          <radialGradient id="gLaco" cx=".35" cy=".3" r=".8">
+            <stop offset="0" stop-color="#fff4d6"/><stop offset=".45" stop-color="#d9b46c"/><stop offset="1" stop-color="#7d5a22"/>
+          </radialGradient>
+          <pattern id="gPadrao" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="7" cy="7" r="1" fill="#d9b46c" opacity=".18"/>
+          </pattern>
+        </defs>
+        <!-- corpo -->
+        <rect x="32" y="104" width="156" height="112" rx="4" fill="url(#gCaixa)"/>
+        <rect x="32" y="104" width="156" height="112" rx="4" fill="url(#gPadrao)"/>
+        <rect x="32" y="104" width="156" height="14" fill="#000" opacity=".35"/>
+        <rect x="99" y="104" width="22" height="112" fill="url(#gFita)"/>
+        <!-- tampa + laço -->
+        <g id="tampa">
+          <rect x="24" y="80" width="172" height="32" rx="4" fill="url(#gTampa)"/>
+          <rect x="24" y="80" width="172" height="32" rx="4" fill="url(#gPadrao)"/>
+          <rect x="24" y="80" width="172" height="4" rx="2" fill="#fff" opacity=".12"/>
+          <rect x="97" y="80" width="26" height="32" fill="url(#gFita)"/>
+          <!-- pontas da fita -->
+          <path d="M106 80 C96 96 86 104 78 122 L90 118 L94 130 C100 110 106 98 110 82Z" fill="url(#gFitaV)" opacity=".95"/>
+          <path d="M114 80 C124 96 134 104 142 122 L130 118 L126 130 C120 110 114 98 110 82Z" fill="url(#gFitaV)" opacity=".95"/>
+          <!-- alças do laço -->
+          <path d="M110 76 C88 40 46 44 56 66 C62 80 90 82 110 78Z" fill="url(#gLaco)"/>
+          <path d="M110 76 C132 40 174 44 164 66 C158 80 130 82 110 78Z" fill="url(#gLaco)"/>
+          <path d="M108 74 C92 52 66 52 68 64" stroke="#7d5a22" stroke-width="1.5" fill="none" opacity=".6"/>
+          <path d="M112 74 C128 52 154 52 152 64" stroke="#7d5a22" stroke-width="1.5" fill="none" opacity=".6"/>
+          <ellipse cx="110" cy="77" rx="11" ry="9" fill="url(#gLaco)"/>
+          <ellipse cx="107" cy="74" rx="4" ry="2.5" fill="#fff" opacity=".55"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</template>
+
 <script>
-(()=>{const c=document.getElementById('neve'),x=c.getContext('2d');let f=[];
-function r(){c.width=innerWidth;c.height=innerHeight}r();addEventListener('resize',r);
-for(let i=0;i<45;i++)f.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.6+.4,v:Math.random()*.25+.05,d:Math.random()*6});
-(function a(){x.clearRect(0,0,c.width,c.height);for(const p of f){p.y-=p.v;p.d+=.02;if(p.y<-5){p.y=c.height+5;p.x=Math.random()*c.width}
-x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(226,194,124,'+(.25+Math.sin(p.d)*.2)+')';x.fill()}requestAnimationFrame(a)})()})();
+/* brilhos dourados no fundo */
+(()=>{const c=document.getElementById('brilhos'),x=c.getContext('2d');let f=[];
+function r(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}r();addEventListener('resize',r);
+for(let i=0;i<60;i++)f.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.4+.3,v:Math.random()*.18+.04,d:Math.random()*6});
+(function a(){x.clearRect(0,0,innerWidth,innerHeight);for(const p of f){p.y-=p.v;p.d+=.015;if(p.y<-5){p.y=innerHeight+5;p.x=Math.random()*innerWidth}
+const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(246,227,180,'+o+')';x.shadowColor='#d9b46c';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
+
+/* confete dourado */
 window.confete=()=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
-const g=k.getContext('2d'),cs=['#e2c27c','#f5e6c0','#c9a24e','#ffffff','#8a7350'];let p=[];for(let i=0;i<160;i++)p.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*14,vy:Math.random()*-14-2,s:Math.random()*6+3,a:Math.random()*6,c:cs[i%5]});
-let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q.vx;q.y+=q.vy;q.vy+=.35;q.vx*=.98;q.a+=.2;g.save();g.translate(q.x,q.y);g.rotate(q.a);g.fillStyle=q.c;g.fillRect(-q.s/2,-q.s/4,q.s,q.s/2);g.restore()}
-if(++t<180)requestAnimationFrame(d);else k.remove()})()};</script>
-<div class="card" id="app"><p class="sub">Carregando...</p></div>
+const g=k.getContext('2d'),cs=['#f6e3b4','#d9b46c','#b38a45','#fff','#7a2235'];let p=[];
+for(let i=0;i<180;i++)p.push({x:innerWidth/2,y:innerHeight*.42,vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,s:Math.random()*7+3,a:Math.random()*6,w:Math.random()*.3+.1,c:cs[i%5]});
+let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q.vx;q.y+=q.vy;q.vy+=.32;q.vx*=.985;q.a+=q.w;g.save();g.translate(q.x,q.y);g.rotate(q.a);g.scale(1,Math.cos(q.a*2));g.fillStyle=q.c;g.fillRect(-q.s/2,-q.s/4,q.s,q.s/2);g.restore()}
+if(++t<220)requestAnimationFrame(d);else k.remove()})()};
+</script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const app = initializeApp({
+const db = getFirestore(initializeApp({
   apiKey: "AIzaSyDaj2LMBuPj_sXqnhfVRJR70vLE99YmY7c",
   authDomain: "amigo-secreto-8ca24.firebaseapp.com",
   projectId: "amigo-secreto-8ca24",
   storageBucket: "amigo-secreto-8ca24.firebasestorage.app",
   messagingSenderId: "858994116965",
   appId: "1:858994116965:web:7384db58be184add1f398c"
-});
-const db = getFirestore(app);
+}));
 const $ = s => document.querySelector(s);
 const tela = html => $('#app').innerHTML = html;
 const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const gid = new URLSearchParams(location.search).get('g');
+const params = new URLSearchParams(location.search);
+const gid = params.get('g'), pTok = params.get('p');
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-// ---------- criptografia: resultado trancado com a senha da pessoa ----------
+const cabecalho = (kicker, titulo) => `
+  <div class="selo">S</div>
+  <p class="kicker">${kicker}</p>
+  <h1>${titulo}</h1>
+  <div class="divisor"><span>✦</span></div>`;
+const presente = () => document.getElementById('tplPresente').innerHTML;
+
+// ---------- criptografia: resultado guardado só no celular de quem sorteou ----------
 const b64 = b => btoa(String.fromCharCode(...new Uint8Array(b)));
 const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 async function chave(pin, nome){
   const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveKey']);
-  return crypto.subtle.deriveKey({name:'PBKDF2', salt:new TextEncoder().encode(gid+'|'+nome), iterations:300000, hash:'SHA-256'},
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt:new TextEncoder().encode(gid+'|'+nome), iterations:200000, hash:'SHA-256'},
     base, {name:'AES-GCM', length:256}, false, ['encrypt','decrypt']);
 }
 async function trancar(texto, pin, nome){
@@ -94,188 +226,115 @@ async function trancar(texto, pin, nome){
 }
 async function destrancar(dado, pin, nome){
   const [iv, ct] = dado.split('.');
-  const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:unb64(iv)}, await chave(pin, nome), unb64(ct));
-  return new TextDecoder().decode(pt);
+  return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM', iv:unb64(iv)}, await chave(pin, nome), unb64(ct)));
 }
 const rnd = n => crypto.getRandomValues(new Uint32Array(1))[0] % n;
+const tok = n => b64(new TextEncoder().encode(n)).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
+const untok = t => new TextDecoder().decode(unb64(t.replace(/-/g,'+').replace(/_/g,'/')));
 
 // ---------- organizador ----------
 function telaCriar(){
-  tela(`
-    <p class="topo">Shhh... é segredo</p><h1>Amigo Secreto da Família Sousa</h1>
-    <p class="sub">Digite o nome de cada pessoa da família, um por linha.</p>
-    <textarea id="nomes" placeholder="Maria&#10;João&#10;Vó Lúcia&#10;..."></textarea>
-    <button id="criar">Criar sorteio</button>
+  tela(`${cabecalho('Convite especial', 'Amigo Secreto<em>da Família Sousa</em>')}
+    <p class="sub">Escreva o nome de cada pessoa,<br><b>um por linha</b>.</p>
+    <textarea id="nomes" placeholder="Maria&#10;João&#10;Vó Lúcia"></textarea>
+    <button class="btn" id="criar">Criar sorteio</button>
     <p class="erro" id="erro"></p>`);
   $('#criar').onclick = async () => {
     const nomes = [...new Set($('#nomes').value.split('\n').map(n => n.trim()).filter(Boolean))];
     if (nomes.length < 3) { $('#erro').textContent = 'Coloque pelo menos 3 nomes diferentes.'; return; }
-    $('#criar').disabled = true;
-    const id = Array.from(crypto.getRandomValues(new Uint8Array(8)), b => b.toString(36).padStart(2,'0')).join('').slice(0,12);
-    await setDoc(doc(db, 'sorteios', id), { nomes, jaSortearam: [], disponiveis: nomes, cofre: {}, criado: Date.now() });
+    $('#criar').disabled = true; $('#criar').textContent = 'Criando...';
+    const id = Array.from(crypto.getRandomValues(new Uint8Array(9)), b => b.toString(36)).join('').slice(0,12);
+    try { await setDoc(doc(db, 'sorteios', id), { nomes, jaSortearam: [], disponiveis: nomes, cofre: {}, criado: Date.now() }); }
+    catch { $('#erro').textContent = 'Não consegui criar, tenta de novo.'; $('#criar').disabled = false; $('#criar').textContent = 'Criar sorteio'; return; }
     const base = location.origin + location.pathname + '?g=' + id + '&p=';
-    tela(`
-      <h1>Sorteio criado!</h1>
-      <p class="sub">Copie o link de cada pessoa e mande só pra ela. Ela abre, aperta sortear e pronto.</p>
-      <div style="display:flex;flex-direction:column;gap:10px;text-align:left">
-      ${nomes.map((n, i) => `<div style="display:flex;justify-content:space-between;align-items:center;background:#0f0c13;border:1px solid var(--line);border-radius:12px;padding:10px 14px">
-        <span>${esc(n)}</span><button class="sec cp" data-i="${i}" style="width:auto;margin:0;padding:8px 14px;font-size:.85rem">Copiar link</button></div>`).join('')}
-      </div>
-      <p class="aviso">Ninguém, nem você, consegue ver quem tirou quem. Só não abra o link dos outros, senão você sorteia por eles!</p>`);
-    document.querySelectorAll('.cp').forEach(b => b.onclick = () => {
-      navigator.clipboard.writeText(base + b64(new TextEncoder().encode(nomes[b.dataset.i])).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_'));
-      b.textContent = 'Copiado!'; b.style.background = '#2e6b45';
+    tela(`${cabecalho('Tudo pronto', 'Os convites<em>estão prontos</em>')}
+      <p class="sub">Mande cada link <b>só para a pessoa certa</b>.<br>Ela abre, toca no presente e descobre.</p>
+      <div class="lista">${nomes.map((n, i) => `<div class="linha"><span>${esc(n)}</span><button data-i="${i}">Copiar link</button></div>`).join('')}</div>
+      <p class="aviso">Ninguém, nem você, consegue ver quem tirou quem.<br>Só não abra o link dos outros.</p>`);
+    document.querySelectorAll('.linha button').forEach(b => b.onclick = () => {
+      navigator.clipboard.writeText(base + tok(nomes[b.dataset.i]));
+      b.textContent = 'Copiado ✓'; b.classList.add('ok');
     });
   };
 }
 
 // ---------- participante ----------
-let dados;
-async function telaInicio(){
-  const snap = await getDoc(doc(db, 'sorteios', gid));
-  if (!snap.exists()) { tela(`<h1>Ops!</h1><p class="sub">Esse sorteio não existe.</p>`); return; }
-  dados = snap.data();
-  const faltam = dados.nomes.filter(n => !dados.jaSortearam.includes(n));
-  tela(`
-    <p class="topo">Shhh... é segredo</p><h1>Amigo Secreto da Família Sousa</h1>
-    <p class="sub">${faltam.length ? 'Quem é você? Clique no seu nome.' : 'Todo mundo já sorteou! 🎉'}</p>
-    <div class="nomes">${faltam.map(n => `<button data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div>
-    ${dados.jaSortearam.length ? `<button class="sec" id="rever">Já sorteei, quero ver de novo</button>` : ''}
-    <p class="prog">${dados.jaSortearam.length} de ${dados.nomes.length} já sortearam</p>`);
-  document.querySelectorAll('.nomes button').forEach(b => b.onclick = () => telaSenha(b.dataset.n));
-  if ($('#rever')) $('#rever').onclick = telaRever;
+async function revelar(tirado, pool, comSuspense){
+  const palco = $('#palco');
+  palco.classList.remove('treme'); palco.classList.add('aberto');
+  $('#acao').innerHTML = `<div class="etiqueta" id="etq"><small>Você tirou</small><div class="nome" id="nm"></div></div>
+    <p class="aviso">Guarde segredo até o grande dia.<br>Se esquecer, abra este mesmo link neste celular.</p>`;
+  await sleep(350); $('#etq').classList.add('mostra');
+  const nm = $('#nm');
+  if (comSuspense && pool.length > 1) {
+    nm.classList.add('girando');
+    let v = 50; let i = rnd(pool.length);
+    while (v < 380) { nm.textContent = pool[i++ % pool.length]; await sleep(v); v *= 1.13; }
+    nm.classList.remove('girando');
+  }
+  nm.textContent = tirado;
+  confete();
 }
 
-function telaSenha(nome){
-  tela(`
-    <h2>Olá, ${esc(nome)}!</h2>
-    <p class="sub">Crie uma senha de 4 números. Ela serve pra você ver seu amigo secreto de novo depois, então não esqueça!</p>
-    <input id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
-    <button id="ir">Sortear meu amigo secreto 🎁</button>
-    <button class="sec" id="volta">Não sou eu, voltar</button>
-    <p class="erro" id="erro"></p>`);
-  $('#pin').focus();
-  $('#volta').onclick = telaInicio;
-  $('#ir').onclick = async () => {
-    const pin = $('#pin').value;
-    if (!/^\d{4}$/.test(pin)) { $('#erro').textContent = 'A senha precisa ter 4 números.'; return; }
-    $('#ir').disabled = true;
+async function telaPessoal(){
+  let nome;
+  try { nome = untok(pTok); } catch { nome = ''; }
+  const snap = await getDoc(doc(db, 'sorteios', gid));
+  if (!snap.exists() || !snap.data().nomes.includes(nome)) {
+    tela(`${cabecalho('Ops', 'Convite<em>inválido</em>')}<p class="sub">Peça um novo link para quem organizou.</p>`); return;
+  }
+  const dados = snap.data();
+  const chaveLocal = 'as_' + gid;
+  const salvo = localStorage.getItem(chaveLocal);
+  const pool = dados.nomes.filter(n => n !== nome);
+
+  tela(`${cabecalho('Amigo Secreto · Família Sousa', `Olá,<em>${esc(nome)}</em>`)}
+    ${presente()}
+    <div id="acao">
+      <p class="sub">Tem um nome esperando por você aqui dentro.<br><b>Não deixe ninguém olhar.</b></p>
+      <button class="btn" id="ir">Abrir meu presente</button>
+      <p class="erro" id="erro"></p>
+    </div>`);
+
+  if (dados.jaSortearam.includes(nome)) {
+    if (salvo) { try { return revelar(await destrancar(dados.cofre[nome], salvo, nome), pool, false); } catch {} }
+    $('#acao').innerHTML = `<p class="sub">Você já abriu o seu presente em outro aparelho.<br><b>Seu amigo secreto continua guardado.</b></p>`;
+    return;
+  }
+
+  const abrir = async () => {
+    if ($('#ir').disabled) return;
+    $('#ir').disabled = true; $('#palco').classList.add('treme');
+    const pin = b64(crypto.getRandomValues(new Uint8Array(16)));
     try {
       const ref = doc(db, 'sorteios', gid);
-      const tirado = await runTransaction(db, async tx => {
+      const [tirado] = await Promise.all([runTransaction(db, async tx => {
         const d = (await tx.get(ref)).data();
         if (d.jaSortearam.includes(nome)) throw new Error('ja');
         const faltam = d.nomes.filter(n => !d.jaSortearam.includes(n));
         const outro = faltam.find(n => n !== nome);
         let opcoes = d.disponiveis.filter(n => n !== nome);
-        // se só faltam 2 pessoas, garante que a última não fique só com o próprio nome
+        // se só faltam 2, garante que o último não fique com o próprio nome
         if (faltam.length === 2 && d.disponiveis.includes(outro)) opcoes = [outro];
         const t = opcoes[rnd(opcoes.length)];
         const cofre = { ...d.cofre, [nome]: await trancar(t, pin, nome) };
         tx.update(ref, { jaSortearam: [...d.jaSortearam, nome], disponiveis: d.disponiveis.filter(n => n !== t), cofre });
         return t;
-      });
-      roleta(nome, tirado);
-    } catch (e) {
-      $('#erro').textContent = e.message === 'ja' ? 'Você já sorteou! Use o botão de ver de novo.' : 'Deu erro, tenta de novo.';
-      $('#ir').disabled = false;
-    }
-  };
-}
-
-function roleta(nome, tirado){
-  tela(`<h2>Sorteando...</h2><div class="roleta" id="rol"></div>`);
-  const pool = dados.nomes.filter(n => n !== nome);
-  let i = 0, vel = 60;
-  const gira = () => {
-    $('#rol').textContent = pool[i++ % pool.length];
-    vel *= 1.12;
-    if (vel < 450) setTimeout(gira, vel); else mostrar(tirado);
-  };
-  gira();
-}
-
-function mostrar(tirado){ setTimeout(()=>window.confete&&confete(),100);
-  tela(`
-    <div class="presente">🎁</div>
-    <p class="sub">Seu amigo secreto é</p>
-    <div class="nome">${esc(tirado)}</div>
-    <p class="aviso">Guarde segredo! 🤫 Se esquecer, é só abrir este mesmo link de novo neste celular.</p>`);
-}
-
-function telaRever(){
-  tela(`
-    <h2>Ver de novo</h2>
-    <p class="sub">Escolha seu nome e digite sua senha.</p>
-    <div class="nomes">${dados.jaSortearam.map(n => `<button data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div>
-    <button class="sec" id="volta">Voltar</button>`);
-  $('#volta').onclick = telaInicio;
-  document.querySelectorAll('.nomes button').forEach(b => b.onclick = () => {
-    const nome = b.dataset.n;
-    tela(`
-      <h2>${esc(nome)}</h2>
-      <p class="sub">Digite sua senha de 4 números.</p>
-      <input id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
-      <button id="ver">Ver meu amigo secreto</button>
-      <button class="sec" id="volta">Voltar</button>
-      <p class="erro" id="erro"></p>`);
-    $('#pin').focus();
-    $('#volta').onclick = telaRever;
-    $('#ver').onclick = async () => {
-      try {
-        const d = (await getDoc(doc(db, 'sorteios', gid))).data();
-        mostrar(await destrancar(d.cofre[nome], $('#pin').value, nome));
-      } catch { $('#erro').textContent = 'Senha errada.'; }
-    };
-  });
-}
-
-// ---------- link pessoal: só um botão de sortear ----------
-const pTok = new URLSearchParams(location.search).get('p');
-async function telaPessoal(){
-  const nome = new TextDecoder().decode(unb64(pTok.replace(/-/g,'+').replace(/_/g,'/')));
-  const snap = await getDoc(doc(db, 'sorteios', gid));
-  if (!snap.exists() || !snap.data().nomes.includes(nome)) { tela(`<h1>Ops!</h1><p class="sub">Link inválido.</p>`); return; }
-  dados = snap.data();
-  const chaveLocal = 'as_' + gid;
-  const salvo = localStorage.getItem(chaveLocal);
-  if (dados.jaSortearam.includes(nome)) {
-    if (salvo) { try { return mostrar(await destrancar(dados.cofre[nome], salvo, nome)); } catch {} }
-    tela(`<h1>Já sorteado!</h1><p class="sub">${esc(nome)}, você já sorteou seu amigo secreto. 🤫</p>`);
-    return;
-  }
-  tela(`
-    <p class="topo">Amigo Secreto da Família Sousa</p><h1>Olá, ${esc(nome)}!</h1>
-    <p class="sub">Aperte o botão pra descobrir seu amigo secreto.<br>Não deixe ninguém olhar!</p>
-    <div class="presente">🎁</div>
-    <button id="ir">Sortear</button>
-    <p class="erro" id="erro"></p>`);
-  $('#ir').onclick = async () => {
-    $('#ir').disabled = true; document.querySelector('.presente').classList.add('abre');
-    const pin = b64(crypto.getRandomValues(new Uint8Array(16)));
-    try {
-      const ref = doc(db, 'sorteios', gid);
-      const tirado = await runTransaction(db, async tx => {
-        const d = (await tx.get(ref)).data();
-        if (d.jaSortearam.includes(nome)) throw new Error('ja');
-        const faltam = d.nomes.filter(n => !d.jaSortearam.includes(n));
-        const outro = faltam.find(n => n !== nome);
-        let opcoes = d.disponiveis.filter(n => n !== nome);
-        if (faltam.length === 2 && d.disponiveis.includes(outro)) opcoes = [outro];
-        const t = opcoes[rnd(opcoes.length)];
-        tx.update(ref, { jaSortearam: [...d.jaSortearam, nome], disponiveis: d.disponiveis.filter(n => n !== t), cofre: { ...d.cofre, [nome]: await trancar(t, pin, nome) } });
-        return t;
-      });
+      }), sleep(1400)]);
       localStorage.setItem(chaveLocal, pin);
-      roleta(nome, tirado);
+      revelar(tirado, pool, true);
     } catch (e) {
-      $('#erro').textContent = e.message === 'ja' ? 'Você já sorteou!' : 'Deu erro, tenta de novo.';
+      $('#palco').classList.remove('treme');
+      $('#erro').textContent = e.message === 'ja' ? 'Você já abriu o seu presente.' : 'Deu um probleminha, tenta de novo.';
       $('#ir').disabled = false;
     }
   };
+  $('#ir').onclick = abrir;
+  $('#palco').onclick = abrir;
+  $('#palco').style.cursor = 'pointer';
 }
 
-if (gid && pTok) telaPessoal(); else if (gid) telaInicio(); else telaCriar();
+if (gid && pTok) telaPessoal(); else telaCriar();
 </script>
 </body>
 </html>
