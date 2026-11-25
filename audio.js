@@ -98,7 +98,7 @@ export const som = {
   rufar(l){ som.batida(l); }, pop(){ som.lacre(); }, tada(){ som.revelacao(); },
   async fala(n){
     if (!ligado) return;
-    const a = new Audio(`midia/fala${n}.mp3`); a.volume = 1;
+    const a = new Audio(`midia/fala${n}.mp3?v=1125135155`); a.volume = 1;
     await new Promise(r => { a.onended = r; a.onerror = r; a.play().catch(r); });
   },
 };

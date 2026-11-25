@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125134620';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125135155';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
@@ -60,7 +60,7 @@ async function revelar(tirado, dica, pool, suspense){
   await sleep(900 + tirado.length * 100);
   confete();
   await sleep(1400);
-  await Promise.all([legenda('Shhh... não conta pra ninguém.', 2800), window.som && som.fala(3)]);
+  await Promise.all([legenda('Shhh... é segredo, tá? Não conta pra ninguém.', 3400), window.som && som.fala(3)]);
   // 6. volta pra tela calma com a dica
   document.body.classList.remove('cena'); document.body.classList.add('revelado');
   await sleep(600);
