@@ -6,12 +6,12 @@
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1125132552">
+<link rel="stylesheet" href="style.css?v=1125133123">
 </head>
 <body>
 <div id="abertura" class="abertura">
-  <video id="fundoVid" src="midia/abertura.mp4?v=1125132552" muted playsinline preload="auto" aria-hidden="true"></video>
-  <video id="vid" src="midia/abertura.mp4?v=1125132552" playsinline preload="auto" poster="midia/capa.jpg"></video>
+  <video id="fundoVid" src="midia/abertura.mp4?v=1125133123" muted playsinline preload="auto" aria-hidden="true"></video>
+  <video id="vid" src="midia/abertura.mp4?v=1125133123" playsinline preload="auto" poster="midia/capa.jpg"></video>
   <div class="capaIntro" id="capaIntro">
     <p class="kicker">Família Sousa apresenta</p>
     <h1>Amigo<em>Secreto</em></h1>
@@ -57,20 +57,57 @@ document.body.classList.add('intro');
 <template id="tplPresente"><div class="palco" id="palco">
   <div class="halo"></div><div class="chao"></div>
   <div class="env">
-    <div class="env-fundo"></div>
-    <div class="env-cartao"><small>Você tirou</small><div class="nome" id="nm"></div></div>
+    <svg class="env-defs" width="0" height="0" aria-hidden="true"><defs>
+      <filter id="papel" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="4" seed="3" result="n"/>
+        <feDiffuseLighting in="n" surfaceScale="1.4" lighting-color="#ffffff" result="luz"><feDistantLight azimuth="235" elevation="55"/></feDiffuseLighting>
+        <feComposite in="luz" in2="SourceGraphic" operator="in" result="luzc"/>
+        <feBlend in="SourceGraphic" in2="luzc" mode="multiply" result="b"/>
+        <feComposite in="b" in2="SourceGraphic" operator="in"/>
+      </filter>
+      <filter id="sombraAba" x="-10%" y="-10%" width="120%" height="140%"><feGaussianBlur stdDeviation="5"/></filter>
+      <linearGradient id="ouro" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#8e7140"/><stop offset=".25" stop-color="#f6e6bd"/><stop offset=".45" stop-color="#c9a96e"/>
+        <stop offset=".7" stop-color="#fff3d1"/><stop offset="1" stop-color="#8e7140"/>
+      </linearGradient>
+      <linearGradient id="gF" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a2a31"/><stop offset=".55" stop-color="#18181d"/><stop offset="1" stop-color="#0d0d10"/></linearGradient>
+      <linearGradient id="gL" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#202026"/><stop offset="1" stop-color="#16161a"/></linearGradient>
+      <linearGradient id="gR" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#121215"/><stop offset="1" stop-color="#1c1c21"/></linearGradient>
+      <linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34343c"/><stop offset=".6" stop-color="#23232a"/><stop offset="1" stop-color="#1b1b20"/></linearGradient>
+      <radialGradient id="cera" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#fff1c8"/><stop offset=".3" stop-color="#e0c180"/><stop offset=".7" stop-color="#a5844b"/><stop offset="1" stop-color="#6e5428"/></radialGradient>
+      <radialGradient id="ceraIn" cx=".5" cy=".5" r=".5"><stop offset=".6" stop-color="#c7a666"/><stop offset="1" stop-color="#8a6c37"/></radialGradient>
+    </defs></svg>
+    <div class="env-fundo"><svg viewBox="0 0 300 196" preserveAspectRatio="none"><rect width="300" height="196" rx="6" fill="#0c0c0f" filter="url(#papel)"/></svg></div>
+    <div class="env-cartao"><small>Você tirou</small><div class="nome" id="nm"></div><i class="filete"></i></div>
     <div class="env-frente"><svg viewBox="0 0 300 196" preserveAspectRatio="none">
-      <defs><linearGradient id="gF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1e23"/><stop offset="1" stop-color="#0f0f12"/></linearGradient></defs>
-      <path d="M0 0 L150 112 L300 0 L300 196 L0 196Z" fill="url(#gF)"/>
-      <path d="M0 196 L150 106 L300 196" fill="none" stroke="#d6ba82" stroke-opacity=".45" stroke-width="1"/>
-      <path d="M0.5 0.5 L150 112 L299.5 0.5" fill="none" stroke="#d6ba82" stroke-opacity=".3" stroke-width="1"/>
-      <rect x="0.5" y="0.5" width="299" height="195" rx="6" fill="none" stroke="#d6ba82" stroke-opacity=".55" stroke-width="1"/>
+      <!-- abas laterais -->
+      <path d="M0 0 L132 104 Q150 116 132 124 L0 196Z" fill="url(#gL)" filter="url(#papel)"/>
+      <path d="M300 0 L168 104 Q150 116 168 124 L300 196Z" fill="url(#gR)" filter="url(#papel)"/>
+      <!-- sombra da aba de baixo sobre as laterais -->
+      <path d="M0 196 L150 100 L300 196Z" fill="#000" opacity=".55" filter="url(#sombraAba)" transform="translate(0,-4)"/>
+      <!-- aba de baixo -->
+      <path d="M0 196 L140 104 Q150 98 160 104 L300 196Z" fill="url(#gF)" filter="url(#papel)"/>
+      <path d="M2 195 L140 104 Q150 98 160 104 L298 195" fill="none" stroke="url(#ouro)" stroke-width="1.1" opacity=".85"/>
+      <path d="M1 1 L132 104" stroke="url(#ouro)" stroke-width=".7" opacity=".45"/><path d="M299 1 L168 104" stroke="url(#ouro)" stroke-width=".7" opacity=".45"/>
+      <!-- borda em ouro com filete duplo -->
+      <rect x=".75" y=".75" width="298.5" height="194.5" rx="6" fill="none" stroke="url(#ouro)" stroke-width="1.5"/>
+      <rect x="6" y="6" width="288" height="184" rx="3" fill="none" stroke="url(#ouro)" stroke-width=".5" opacity=".35"/>
     </svg></div>
-    <div class="env-aba"><svg viewBox="0 0 300 118" preserveAspectRatio="none">
-      <defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26262c"/><stop offset="1" stop-color="#18181c"/></linearGradient></defs>
-      <path d="M0 0 L300 0 L150 118Z" fill="url(#gA)" stroke="#d6ba82" stroke-opacity=".6" stroke-width="1" stroke-linejoin="round"/>
+    <div class="env-aba"><svg viewBox="0 0 300 124" preserveAspectRatio="none">
+      <path d="M4 2 L150 124 L296 2Z" fill="#000" opacity=".6" filter="url(#sombraAba)" transform="translate(0,6)"/>
+      <path d="M0 0 L300 0 L162 112 Q150 122 138 112Z" fill="url(#gA)" filter="url(#papel)"/>
+      <path d="M1 1 L138 112 Q150 122 162 112 L299 1" fill="none" stroke="url(#ouro)" stroke-width="1.3"/>
+      <path d="M0 .5 L300 .5" stroke="#fff" stroke-opacity=".12"/>
     </svg></div>
-    <div class="lacre">S</div>
+    <div class="lacre"><svg viewBox="0 0 60 60">
+      <path d="M30 2c5 0 7 3 11 4s8 1 10 5 0 7 2 11 4 6 3 10-4 6-5 10-1 8-5 10-7 0-11 2-6 4-10 3-6-3-10-5-8-1-10-5 0-7-2-11-4-6-3-10 4-6 5-10 1-8 5-10 7 0 11-2 5-4 9-2z" fill="url(#cera)"/>
+      <circle cx="30" cy="30" r="17" fill="url(#ceraIn)"/>
+      <circle cx="30" cy="30" r="17" fill="none" stroke="#fff3d1" stroke-opacity=".55" stroke-width=".8"/>
+      <circle cx="30" cy="30" r="14.5" fill="none" stroke="#6e5428" stroke-opacity=".6" stroke-width=".6" stroke-dasharray="1.2 1.6"/>
+      <text x="30" y="37.5" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-weight="600" font-size="22" fill="#5a4420">S</text>
+      <text x="29.4" y="36.8" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-weight="600" font-size="22" fill="#fff3d1" opacity=".35">S</text>
+      <ellipse cx="22" cy="15" rx="9" ry="4" fill="#fff" opacity=".35" transform="rotate(-25 22 15)"/>
+    </svg></div>
   </div>
 </div></template>
 
@@ -101,7 +138,7 @@ let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
-<script type="module" src="audio.js?v=1125132552"></script>
-<script type="module" src="sorteio.js?v=1125132552"></script>
+<script type="module" src="audio.js?v=1125133123"></script>
+<script type="module" src="sorteio.js?v=1125133123"></script>
 </body>
 </html>

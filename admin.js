@@ -1,5 +1,6 @@
-import { ref, getDoc, setDoc, runTransaction, db, $, tela, esc, cabecalho } from './comum.js?v=1125132552';
+import { ref, getDoc, setDoc, runTransaction, db, $, tela, esc, cabecalho } from './comum.js?v=1125133123';
 
+const cap = n => String(n).toLocaleLowerCase('pt-BR').replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toLocaleUpperCase('pt-BR'));
 const HASH = '311f4d7334be0059d7f5ff9395196eec2c9651adb4ac9dadbaa4858ec2fdf5b5';
 const sha = async s => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s))), b => b.toString(16).padStart(2,'0')).join('');
 
@@ -26,7 +27,7 @@ async function painel(){
       <div>${sorteados}<small>Já sortearam</small></div>
     </div>
     <div class="addrow" style="margin-top:18px"><input id="novo" placeholder="Adicionar nome"><button class="btn" id="add">+</button></div>
-    <div class="lista" style="margin-top:18px">${d.nomes.map((n, i) => `<div class="linha"><span>${esc(n)}</span><button class="x" data-i="${i}">Remover</button></div>`).join('')}</div>
+    <div class="lista" style="margin-top:18px">${d.nomes.map((n, i) => `<div class="linha"><span>${esc(cap(n))}</span><button class="x" data-i="${i}">Remover</button></div>`).join('')}</div>
     <button class="btn" id="reset">Sortear novamente</button>
     <button class="btn sec" id="link">Copiar link do sorteio</button>
     <p class="aviso">Ao adicionar ou remover nomes, ou sortear novamente,<br>o sorteio recomeça do zero para todo mundo.</p></div>`);

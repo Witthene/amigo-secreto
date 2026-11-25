@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125132552';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125133123';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
@@ -12,6 +12,7 @@ function etiquetas(nomes){
   }).join('');
   $('#palco').insertAdjacentHTML('beforeend', tags);
 }
+const cap = n => String(n).toLocaleLowerCase('pt-BR').replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toLocaleUpperCase('pt-BR'));
 const chaveLocal = r => 'amigo_sousa_' + r;
 const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 
@@ -22,6 +23,7 @@ function escreverNome(nm, nome){
 }
 
 async function revelar(tirado, dica, pool, suspense){
+  tirado = cap(tirado); pool = pool.map(cap);
   const palco = $('#palco'), nm = $('#nm');
   $('#acao').innerHTML = `<div class="etiqueta" id="etq"><small>Dica de presente</small><p id="dcp"></p></div>
     <p class="aviso">Guarde segredo até o grande dia.<br>Abra este link de novo neste celular para rever.</p>`;
