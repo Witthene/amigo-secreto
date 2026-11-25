@@ -288,3 +288,7 @@ body.cena .palco{transform:translateY(-2vh) scale(1.18)}
 .palco.frente .env-cartao{transform:translateY(-112px) scale(1.08)}
 body.cena .palco{transform:translateY(7vh) scale(1.1)}
 @media(max-width:420px){body.cena .palco{transform:translateY(9vh) scale(1.04)}}
+
+/* sem preserve-3d: a ordem das camadas (z-index) passa a valer */
+.env{transform-style:flat!important}
+.env-aba{backface-visibility:visible}
