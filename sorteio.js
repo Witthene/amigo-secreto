@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=11251222';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
