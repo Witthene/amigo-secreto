@@ -6,12 +6,19 @@
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1125123456">
+<link rel="stylesheet" href="style.css?v=1125123715">
 </head>
 <body>
 <canvas id="brilhos"></canvas>
 
-<main class="convite">
+<div class="deco" aria-hidden="true">
+  <svg class="d1" viewBox="0 0 100 100"><defs><radialGradient id="esf1" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ffd1d1"/><stop offset=".4" stop-color="#ff4d4f"/><stop offset="1" stop-color="#a3111a"/></radialGradient></defs><circle cx="50" cy="50" r="42" fill="url(#esf1)"/><ellipse cx="36" cy="32" rx="12" ry="7" fill="#fff" opacity=".6"/></svg>
+  <svg class="d2" viewBox="0 0 100 100"><defs><linearGradient id="est" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3a6"/><stop offset=".5" stop-color="#ffc72c"/><stop offset="1" stop-color="#e09a00"/></linearGradient></defs><path d="M50 6 L62 36 L94 38 L69 58 L78 90 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="url(#est)" stroke="#c98500" stroke-width="2" stroke-linejoin="round"/><path d="M50 6 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="#fff" opacity=".18"/></svg>
+  <svg class="d3" viewBox="0 0 100 100"><defs><radialGradient id="esf2" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff8d6"/><stop offset=".45" stop-color="#ffc72c"/><stop offset="1" stop-color="#c98500"/></radialGradient></defs><circle cx="50" cy="50" r="40" fill="url(#esf2)"/><ellipse cx="36" cy="32" rx="11" ry="6" fill="#fff" opacity=".7"/></svg>
+  <svg class="d4" viewBox="0 0 100 100"><defs><linearGradient id="est2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfe9d8"/></linearGradient></defs><path d="M50 6 L62 36 L94 38 L69 58 L78 90 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="url(#est2)" stroke="#a9d3b8" stroke-width="2" stroke-linejoin="round"/></svg>
+  <svg class="d5" viewBox="0 0 100 100"><path d="M10 60 Q30 20 50 50 T90 40" stroke="#ffc72c" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
+  <svg class="d6" viewBox="0 0 100 100"><path d="M10 50 Q30 20 50 50 T90 50" stroke="#ff5a5f" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
+</div><main class="convite">
   <i class="canto a"></i><i class="canto b"></i><i class="canto c"></i><i class="canto d"></i>
   <div id="app"><p class="sub">Carregando...</p></div>
 </main>
@@ -20,48 +27,44 @@
   <div class="palco" id="palco">
     <div class="raios"></div><div class="halo"></div><div class="sombra"></div>
     <div class="caixa">
-      <svg viewBox="0 0 220 230">
+      <svg viewBox="0 0 240 250">
         <defs>
-          <linearGradient id="gCaixa" x1="0" x2="1">
-            <stop offset="0" stop-color="#b5151b"/><stop offset=".45" stop-color="#f0353b"/><stop offset=".55" stop-color="#e4262c"/><stop offset="1" stop-color="#a51218"/>
-          </linearGradient>
-          <linearGradient id="gTampa" x1="0" x2="1">
-            <stop offset="0" stop-color="#c41a20"/><stop offset=".45" stop-color="#ff4a4f"/><stop offset=".55" stop-color="#ee3036"/><stop offset="1" stop-color="#b0161c"/>
-          </linearGradient>
-          <linearGradient id="gFita" x1="0" x2="1">
-            <stop offset="0" stop-color="#0e6b33"/><stop offset=".35" stop-color="#2fbf65"/><stop offset=".5" stop-color="#1e9b4c"/><stop offset="1" stop-color="#0e6b33"/>
-          </linearGradient>
-          <linearGradient id="gFitaV" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#34c76c"/><stop offset=".5" stop-color="#1e9b4c"/><stop offset="1" stop-color="#0e6b33"/>
-          </linearGradient>
-          <radialGradient id="gLaco" cx=".35" cy=".3" r=".8">
-            <stop offset="0" stop-color="#5fe08f"/><stop offset=".45" stop-color="#1e9b4c"/><stop offset="1" stop-color="#0b5a2a"/>
-          </radialGradient>
-          <pattern id="gPadrao" width="14" height="14" patternUnits="userSpaceOnUse">
-            <circle cx="7" cy="7" r="1.2" fill="#fff" opacity=".12"/>
-          </pattern>
+          <linearGradient id="fEsq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8242b"/><stop offset="1" stop-color="#9e1219"/></linearGradient>
+          <linearGradient id="fDir" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4d4f"/><stop offset="1" stop-color="#d1222a"/></linearGradient>
+          <linearGradient id="fTopo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a80"/><stop offset=".5" stop-color="#ff5252"/><stop offset="1" stop-color="#e53935"/></linearGradient>
+          <linearGradient id="fitaE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5b400"/><stop offset="1" stop-color="#c98a00"/></linearGradient>
+          <linearGradient id="fitaD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe066"/><stop offset="1" stop-color="#ffbf1f"/></linearGradient>
+          <linearGradient id="fitaT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset="1" stop-color="#ffcc33"/></linearGradient>
+          <radialGradient id="laco" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#fff6c4"/><stop offset=".5" stop-color="#ffcf2e"/><stop offset="1" stop-color="#d99a00"/></radialGradient>
+          <linearGradient id="brilho" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
         </defs>
         <!-- corpo -->
-        <rect x="32" y="104" width="156" height="112" rx="4" fill="url(#gCaixa)"/>
-        <rect x="32" y="104" width="156" height="112" rx="4" fill="url(#gPadrao)"/>
-        <rect x="32" y="104" width="156" height="14" fill="#000" opacity=".35"/>
-        <rect x="99" y="104" width="22" height="112" fill="url(#gFita)"/>
-        <!-- tampa + laço -->
+        <polygon points="30,125 120,155 120,240 30,210" fill="url(#fEsq)"/>
+        <polygon points="120,155 210,125 210,210 120,240" fill="url(#fDir)"/>
+        <polygon points="68,137.7 82,142.3 82,227.3 68,222.7" fill="url(#fitaE)"/>
+        <polygon points="158,142.3 172,137.7 172,222.7 158,227.3" fill="url(#fitaD)"/>
+        <polygon points="120,155 210,125 210,140 120,170" fill="#000" opacity=".18"/>
+        <polygon points="30,125 120,155 120,170 30,140" fill="#000" opacity=".25"/>
+        <polygon points="186,133 196,129.7 196,205 186,208.3" fill="url(#brilho)"/>
+        <!-- tampa -->
         <g id="tampa">
-          <rect x="24" y="80" width="172" height="32" rx="4" fill="url(#gTampa)"/>
-          <rect x="24" y="80" width="172" height="32" rx="4" fill="url(#gPadrao)"/>
-          <rect x="24" y="80" width="172" height="4" rx="2" fill="#fff" opacity=".12"/>
-          <rect x="97" y="80" width="26" height="32" fill="url(#gFita)"/>
-          <!-- pontas da fita -->
-          <path d="M106 80 C96 96 86 104 78 122 L90 118 L94 130 C100 110 106 98 110 82Z" fill="url(#gFitaV)" opacity=".95"/>
-          <path d="M114 80 C124 96 134 104 142 122 L130 118 L126 130 C120 110 114 98 110 82Z" fill="url(#gFitaV)" opacity=".95"/>
-          <!-- alças do laço -->
-          <path d="M110 76 C88 40 46 44 56 66 C62 80 90 82 110 78Z" fill="url(#gLaco)"/>
-          <path d="M110 76 C132 40 174 44 164 66 C158 80 130 82 110 78Z" fill="url(#gLaco)"/>
-          <path d="M108 74 C92 52 66 52 68 64" stroke="#0b5a2a" stroke-width="1.5" fill="none" opacity=".6"/>
-          <path d="M112 74 C128 52 154 52 152 64" stroke="#0b5a2a" stroke-width="1.5" fill="none" opacity=".6"/>
-          <ellipse cx="110" cy="77" rx="11" ry="9" fill="url(#gLaco)"/>
-          <ellipse cx="107" cy="74" rx="4" ry="2.5" fill="#fff" opacity=".55"/>
+          <polygon points="20,110 120,142 120,162 20,130" fill="url(#fEsq)"/>
+          <polygon points="120,142 220,110 220,130 120,162" fill="url(#fDir)"/>
+          <polygon points="120,78 220,110 120,142 20,110" fill="url(#fTopo)"/>
+          <polygon points="63,123.8 77,128.2 77,148.2 63,143.8" fill="url(#fitaE)"/>
+          <polygon points="163,128.2 177,123.8 177,143.8 163,148.2" fill="url(#fitaD)"/>
+          <polygon points="63,123.8 77,128.2 177,96.2 163,91.8" fill="url(#fitaT)"/>
+          <polygon points="163,128.2 177,123.8 77,91.8 63,96.2" fill="url(#fitaT)"/>
+          <polygon points="120,78 220,110 120,142 20,110" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
+          <!-- laço -->
+          <path d="M116 110 C104 122 96 132 92 146 L101 141 L104 151 C108 136 114 124 120 112Z" fill="#e0a800"/>
+          <path d="M124 110 C136 122 144 132 148 146 L139 141 L136 151 C132 136 126 124 120 112Z" fill="#f2bb12"/>
+          <path d="M120 108 C96 66 54 76 74 100 C86 114 108 112 120 108Z" fill="url(#laco)"/>
+          <path d="M120 108 C144 66 186 76 166 100 C154 114 132 112 120 108Z" fill="url(#laco)"/>
+          <path d="M116 104 C102 84 82 82 80 94" stroke="#c48a00" stroke-width="2" fill="none" stroke-linecap="round" opacity=".55"/>
+          <path d="M124 104 C138 84 158 82 160 94" stroke="#c48a00" stroke-width="2" fill="none" stroke-linecap="round" opacity=".55"/>
+          <ellipse cx="120" cy="106" rx="13" ry="10" fill="url(#laco)"/>
+          <ellipse cx="115" cy="102" rx="5" ry="3" fill="#fff" opacity=".7"/>
         </g>
       </svg>
     </div>
@@ -84,6 +87,6 @@ let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
-<script type="module" src="sorteio.js?v=1125123456"></script>
+<script type="module" src="sorteio.js?v=1125123715"></script>
 </body>
 </html>

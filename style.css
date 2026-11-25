@@ -108,3 +108,43 @@
   .form input:focus,.form textarea:focus{border-color:var(--amarelo)}
   .dica{margin-top:16px;padding-top:14px;border-top:2px dashed #e6dcc4}
   .dica p{font:600 1.05rem 'Nunito',sans-serif;color:#3d3d38;margin-top:6px;line-height:1.4}
+
+  /* ===== upgrade: volume, ícones e 3D ===== */
+  h1{text-shadow:0 2px 0 #157238,0 4px 0 #11652f,0 6px 0 #0d5727,0 8px 0 #0a4a20,0 18px 28px rgba(0,0,0,.35)}
+  h1 em{text-shadow:0 2px 0 #f0a800,0 4px 0 #db9500,0 6px 0 #c48200,0 8px 0 #a86e00,0 18px 28px rgba(0,0,0,.3)}
+  .kicker{box-shadow:inset 0 2px 0 rgba(255,255,255,.08),0 8px 18px rgba(0,0,0,.2)}
+  .kicker::before{content:'';width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffc72c' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='8' width='18' height='4' rx='1'/%3E%3Cpath d='M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5'/%3E%3C/svg%3E") center/contain no-repeat}
+  .rabisco{text-shadow:0 3px 8px rgba(0,0,0,.25)}
+
+  .deco svg{position:fixed;z-index:0;pointer-events:none;filter:drop-shadow(0 14px 16px rgba(0,0,0,.3));animation:boia var(--t,7s) ease-in-out infinite}
+  .deco .d1{width:70px;left:6%;top:14%;--t:7s}
+  .deco .d2{width:64px;right:7%;top:10%;--t:6s;animation-delay:-2s}
+  .deco .d3{width:40px;left:12%;bottom:16%;--t:8s;animation-delay:-4s}
+  .deco .d4{width:38px;right:12%;bottom:22%;--t:6.5s;animation-delay:-1s}
+  .deco .d5{width:70px;left:20%;top:52%;--t:9s;opacity:.85}
+  .deco .d6{width:60px;right:18%;top:48%;--t:8s;opacity:.85;animation-delay:-3s}
+  @keyframes boia{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-18px) rotate(8deg)}}
+  @media(max-width:700px){.deco .d1{width:44px;left:3%;top:4%}.deco .d2{width:40px;right:4%;top:6%}.deco .d5,.deco .d6{display:none}.deco .d3{width:28px;left:4%}.deco .d4{width:26px;right:5%}}
+
+  .palco{height:300px}
+  .caixa{width:240px;height:250px;margin-left:-120px;top:20px}
+  .caixa svg{filter:drop-shadow(0 26px 24px rgba(0,0,0,.35)) drop-shadow(0 4px 6px rgba(0,0,0,.2))}
+  #tampa{transform-origin:120px 120px}
+  .sombra{top:262px;width:200px;height:26px;background:radial-gradient(rgba(0,0,0,.4),transparent 70%)}
+
+  /* formulário em cartão */
+  .form{background:linear-gradient(180deg,#ffffff,#fbf6ea);border-radius:30px;padding:22px 20px 24px;gap:4px;
+    box-shadow:0 2px 0 rgba(255,255,255,.8) inset,0 -4px 0 rgba(0,0,0,.06) inset,0 26px 50px rgba(0,0,0,.28),0 6px 14px rgba(0,0,0,.12)}
+  .form label{display:flex;align-items:center;gap:8px;color:var(--verde);margin:12px 0 6px 4px;font-size:.8rem}
+  .form label:first-child{margin-top:0}
+  .form label svg{width:20px;height:20px;padding:5px;box-sizing:content-box;border-radius:10px;background:var(--verde);color:var(--amarelo);box-shadow:0 3px 0 #0d5727}
+  .form input,.form textarea{background:#f3f1ea;box-shadow:inset 0 3px 6px rgba(0,0,0,.08);border:3px solid transparent;font-size:1.1rem}
+  .form input:focus,.form textarea:focus{background:#fff;border-color:var(--amarelo);box-shadow:0 0 0 5px rgba(255,199,44,.25)}
+  .btn{background:linear-gradient(180deg,#ffd95a,#ffc72c 55%,#ffb800);text-shadow:0 1px 0 rgba(255,255,255,.5);box-shadow:inset 0 2px 0 rgba(255,255,255,.6),0 7px 0 #d99400,0 18px 30px rgba(0,0,0,.3)}
+  .btn:hover{box-shadow:inset 0 2px 0 rgba(255,255,255,.6),0 9px 0 #d99400,0 22px 34px rgba(0,0,0,.32)}
+  .btn:active{box-shadow:inset 0 2px 0 rgba(255,255,255,.6),0 2px 0 #d99400,0 8px 16px rgba(0,0,0,.3)}
+  .btn svg{width:26px;height:26px}
+  .etiqueta{box-shadow:inset 0 -4px 0 rgba(0,0,0,.05),0 30px 50px rgba(0,0,0,.35),0 8px 16px rgba(0,0,0,.15)}
+  .etiqueta .nome{text-shadow:0 3px 0 rgba(228,38,44,.15)}
+  .painel{box-shadow:inset 0 -4px 0 rgba(0,0,0,.05),0 26px 50px rgba(0,0,0,.28),0 6px 14px rgba(0,0,0,.12)}
+  .status div{box-shadow:inset 0 2px 0 rgba(255,255,255,.08),0 5px 0 #0a3d23}
