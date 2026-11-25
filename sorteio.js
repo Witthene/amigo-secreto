@@ -57,7 +57,7 @@ async function trocar(meu){
 async function iniciar(){
   const snap = await getDoc(ref);
   const d = snap.exists() ? snap.data() : null;
-  tela(`${cabecalho('Família Sousa', 'Amigo<em>Secreto</em>')}
+  tela(`${cabecalho('Amigo Secreto da Família Sousa', 'Quem você vai<em>tirar este ano?</em>', 'a surpresa começa <b>agora!</b>')}
     ${presente()}
     <div id="acao"></div>`);
 
