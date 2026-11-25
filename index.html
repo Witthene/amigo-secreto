@@ -6,7 +6,7 @@
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1125123940">
+<link rel="stylesheet" href="style.css?v=1125124207">
 </head>
 <body>
 <canvas id="brilhos"></canvas>
@@ -23,57 +23,7 @@
   <div id="app"><p class="sub">Carregando...</p></div>
 </main>
 
-<template id="tplPresente">
-  <div class="palco" id="palco">
-    <div class="raios"></div><div class="halo"></div><div class="sombra"></div>
-    <div class="caixa">
-      <svg viewBox="0 0 240 250">
-        <defs>
-          <linearGradient id="fEsq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8242b"/><stop offset="1" stop-color="#9e1219"/></linearGradient>
-          <linearGradient id="fDir" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4d4f"/><stop offset="1" stop-color="#d1222a"/></linearGradient>
-          <linearGradient id="fTopo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a80"/><stop offset=".5" stop-color="#ff5252"/><stop offset="1" stop-color="#e53935"/></linearGradient>
-          <linearGradient id="fitaE" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5b400"/><stop offset="1" stop-color="#c98a00"/></linearGradient>
-          <linearGradient id="fitaD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe066"/><stop offset="1" stop-color="#ffbf1f"/></linearGradient>
-          <linearGradient id="fitaT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset="1" stop-color="#ffcc33"/></linearGradient>
-          <radialGradient id="laco" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#fff6c4"/><stop offset=".5" stop-color="#ffcf2e"/><stop offset="1" stop-color="#d99a00"/></radialGradient>
-          <linearGradient id="brilho" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-        </defs>
-        <!-- dentro da caixa (aparece ao abrir) -->
-        <polygon points="30,125 120,95 210,125 120,155" fill="#5e0a10"/>
-        <polygon points="30,125 120,95 120,112 40,138" fill="#3d0509"/>
-        <polygon points="120,95 210,125 200,138 120,112" fill="#4a070c"/>
-        <ellipse cx="120" cy="130" rx="60" ry="16" fill="#ffe27a" opacity=".55" class="luzdentro"/>
-        <!-- corpo -->        <polygon points="30,125 120,155 120,240 30,210" fill="url(#fEsq)"/>
-        <polygon points="120,155 210,125 210,210 120,240" fill="url(#fDir)"/>
-        <polygon points="68,137.7 82,142.3 82,227.3 68,222.7" fill="url(#fitaE)"/>
-        <polygon points="158,142.3 172,137.7 172,222.7 158,227.3" fill="url(#fitaD)"/>
-        <polygon points="120,155 210,125 210,140 120,170" fill="#000" opacity=".18"/>
-        <polygon points="30,125 120,155 120,170 30,140" fill="#000" opacity=".25"/>
-        <polygon points="186,133 196,129.7 196,205 186,208.3" fill="url(#brilho)"/>
-        <!-- tampa -->
-        <g id="tampa">
-          <polygon points="20,110 120,142 120,162 20,130" fill="url(#fEsq)"/>
-          <polygon points="120,142 220,110 220,130 120,162" fill="url(#fDir)"/>
-          <polygon points="120,78 220,110 120,142 20,110" fill="url(#fTopo)"/>
-          <polygon points="63,123.8 77,128.2 77,148.2 63,143.8" fill="url(#fitaE)"/>
-          <polygon points="163,128.2 177,123.8 177,143.8 163,148.2" fill="url(#fitaD)"/>
-          <polygon points="63,123.8 77,128.2 177,96.2 163,91.8" fill="url(#fitaT)"/>
-          <polygon points="163,128.2 177,123.8 77,91.8 63,96.2" fill="url(#fitaT)"/>
-          <polygon points="120,78 220,110 120,142 20,110" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
-          <!-- laço -->
-          <path d="M116 110 C104 122 96 132 92 146 L101 141 L104 151 C108 136 114 124 120 112Z" fill="#e0a800"/>
-          <path d="M124 110 C136 122 144 132 148 146 L139 141 L136 151 C132 136 126 124 120 112Z" fill="#f2bb12"/>
-          <path d="M120 108 C96 66 54 76 74 100 C86 114 108 112 120 108Z" fill="url(#laco)"/>
-          <path d="M120 108 C144 66 186 76 166 100 C154 114 132 112 120 108Z" fill="url(#laco)"/>
-          <path d="M116 104 C102 84 82 82 80 94" stroke="#c48a00" stroke-width="2" fill="none" stroke-linecap="round" opacity=".55"/>
-          <path d="M124 104 C138 84 158 82 160 94" stroke="#c48a00" stroke-width="2" fill="none" stroke-linecap="round" opacity=".55"/>
-          <ellipse cx="120" cy="106" rx="13" ry="10" fill="url(#laco)"/>
-          <ellipse cx="115" cy="102" rx="5" ry="3" fill="#fff" opacity=".7"/>
-        </g>
-      </svg>
-    </div>
-  </div>
-</template>
+<template id="tplPresente"><div class="palco" id="palco"><div class="raios"></div><div class="halo"></div><div class="caixa"></div></div></template>
 
 <script>
 /* brilhos dourados no fundo */
@@ -91,6 +41,8 @@ let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
-<script type="module" src="sorteio.js?v=1125123940"></script>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="gift3d.js?v=1125124207"></script>
+<script type="module" src="sorteio.js?v=1125124207"></script>
 </body>
 </html>
