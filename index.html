@@ -6,9 +6,46 @@
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1125124358">
+<link rel="stylesheet" href="style.css?v=1125125228">
 </head>
 <body>
+<div id="abertura" class="abertura">
+  <video id="fundoVid" src="midia/abertura.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+  <video id="vid" src="midia/abertura.mp4" playsinline preload="auto" poster="midia/capa.jpg"></video>
+  <div class="capaIntro" id="capaIntro">
+    <p class="kicker">Família Sousa apresenta</p>
+    <h1>Amigo<em>Secreto</em></h1>
+    <button class="play" id="play" aria-label="Começar">
+      <svg viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" fill="currentColor"/></svg>
+    </button>
+    <p class="dicaPlay">Toque para começar 🔊</p>
+  </div>
+  <div class="barra"><i id="prog"></i></div>
+  <button class="pular hide" id="pular">Pular ›</button>
+</div>
+<script>
+document.body.classList.add('intro');
+(() => {
+  const ab = document.getElementById('abertura'), v = document.getElementById('vid'), f = document.getElementById('fundoVid');
+  const fim = () => {
+    if (!document.body.classList.contains('intro')) return;
+    v.pause(); f.pause(); ab.classList.add('sai');
+    document.body.classList.remove('intro');
+    window.som && som.musica();
+    setTimeout(() => ab.remove(), 900);
+  };
+  document.getElementById('play').onclick = e => {
+    e.stopPropagation();
+    ab.classList.add('tocando');
+    v.currentTime = 0; f.currentTime = 0;
+    v.play(); f.play();
+    setTimeout(() => document.getElementById('pular').classList.remove('hide'), 2500);
+  };
+  document.getElementById('pular').onclick = e => { e.stopPropagation(); fim(); };
+  v.onended = fim;
+  v.ontimeupdate = () => { document.getElementById('prog').style.width = (v.currentTime / v.duration * 100) + '%'; f.currentTime - v.currentTime > .3 || v.currentTime - f.currentTime > .3 ? f.currentTime = v.currentTime : 0; };
+})();
+</script>
 <canvas id="brilhos"></canvas>
 
 <div class="deco" aria-hidden="true">
@@ -42,8 +79,8 @@ if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
 <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-<script type="module" src="gift3d.js?v=1125124358"></script>
-<script type="module" src="audio.js?v=1125124358"></script>
-<script type="module" src="sorteio.js?v=1125124358"></script>
+<script type="module" src="gift3d.js?v=1125125228"></script>
+<script type="module" src="audio.js?v=1125125228"></script>
+<script type="module" src="sorteio.js?v=1125125228"></script>
 </body>
 </html>

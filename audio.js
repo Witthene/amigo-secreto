@@ -83,6 +83,7 @@ export const som = {
     if (navigator.vibrate) navigator.vibrate([60, 40, 60, 40, 200]);
   },
 };
+som.musica = () => { iniciar(); ctx.resume(); if (ligado) tocarMusica(); };
 window.som = som;
 
 // botão de ligar/desligar o som
@@ -101,7 +102,7 @@ bt.onclick = e => {
 document.body.appendChild(bt);
 
 // navegadores só liberam som depois do primeiro toque
-const destrava = () => { iniciar(); ctx.resume(); if (ligado) tocarMusica(); removeEventListener('pointerdown', destrava); };
+const destrava = () => { iniciar(); ctx.resume(); if (ligado && !document.body.classList.contains('intro')) tocarMusica(); removeEventListener('pointerdown', destrava); };
 addEventListener('pointerdown', destrava);
 
 // sons automáticos: cliques em botões, rufar ao sortear, fanfarra ao abrir, tique nos nomes girando

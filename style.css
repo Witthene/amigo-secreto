@@ -167,3 +167,28 @@
   .somBtn:active{transform:translateY(3px)}
   .somBtn svg{width:26px;height:26px}
   @media(max-width:700px){.deco .d2{top:auto;bottom:4%}}
+
+  /* ===== abertura com vídeo ===== */
+  body.intro{overflow:hidden}
+  .abertura{position:fixed;inset:0;z-index:50;background:#0b3d22;display:grid;place-items:center;transition:opacity .8s,transform .8s}
+  .abertura.sai{opacity:0;transform:scale(1.08);pointer-events:none}
+  .abertura video{position:absolute;inset:0;width:100%;height:100%}
+  #fundoVid{object-fit:cover;filter:blur(30px) brightness(.5);transform:scale(1.2)}
+  #vid{object-fit:contain;opacity:0;transition:opacity .8s}
+  .abertura.tocando #vid{opacity:1}
+  .capaIntro{position:relative;z-index:2;text-align:center;padding:30px;transition:opacity .6s,transform .6s}
+  .capaIntro::before{content:'';position:absolute;inset:-40vh -40vw;z-index:-1;background:radial-gradient(circle at 50% 50%,#23924f 0%,#1b7a43 35%,#0b3d22 80%)}
+  .abertura.tocando .capaIntro{opacity:0;transform:scale(.9);pointer-events:none}
+  .capaIntro h1{font-size:4.2rem;margin-bottom:34px}
+  .play{width:120px;height:120px;border-radius:50%;border:none;cursor:pointer;color:#1d1d1b;display:grid;place-items:center;margin:0 auto;
+    background:linear-gradient(180deg,#ffd95a,#ffb800);box-shadow:inset 0 3px 0 rgba(255,255,255,.6),0 9px 0 #d99400,0 24px 40px rgba(0,0,0,.4);animation:pulsaPlay 1.8s ease-in-out infinite}
+  .play svg{width:54px;height:54px;margin-left:8px}
+  .play:active{transform:translateY(5px)}
+  @keyframes pulsaPlay{0%,100%{box-shadow:inset 0 3px 0 rgba(255,255,255,.6),0 9px 0 #d99400,0 24px 40px rgba(0,0,0,.4),0 0 0 0 rgba(255,199,44,.5)}50%{box-shadow:inset 0 3px 0 rgba(255,255,255,.6),0 9px 0 #d99400,0 24px 40px rgba(0,0,0,.4),0 0 0 22px rgba(255,199,44,0)}}
+  .dicaPlay{margin-top:26px;font:800 1.2rem 'Nunito',sans-serif;color:#fff;opacity:.9}
+  .barra{position:absolute;left:0;right:0;bottom:0;height:6px;background:rgba(255,255,255,.15);z-index:3;opacity:0}
+  .abertura.tocando .barra{opacity:1}
+  .barra i{display:block;height:100%;width:0;background:var(--amarelo)}
+  .pular{position:absolute;z-index:3;right:20px;bottom:30px;padding:14px 26px;border-radius:999px;border:none;cursor:pointer;
+    font:900 1.1rem 'Rubik',sans-serif;color:#1d1d1b;background:rgba(255,255,255,.92);box-shadow:0 8px 20px rgba(0,0,0,.35)}
+  body.intro .somBtn{display:none}
