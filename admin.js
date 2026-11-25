@@ -12,7 +12,7 @@ function login(){
     else $('#erro').textContent = 'Senha errada.';
   };
   $('#entrar').onclick = ir;
-  $('#senha').onkeydown = e => e.key === 'Enter' && ir();
+  $('#senha').onkeydown = e => { if (e.key === 'Enter') ir(); };
   $('#senha').focus();
 }
 
@@ -42,7 +42,7 @@ async function painel(){
     salvar([...d.nomes, n]);
   };
   $('#add').onclick = add;
-  $('#novo').onkeydown = e => e.key === 'Enter' && add();
+  $('#novo').onkeydown = e => { if (e.key === 'Enter') add(); };
   document.querySelectorAll('.x').forEach(b => b.onclick = () => {
     if (confirm(`Remover ${d.nomes[b.dataset.i]}? O sorteio vai recomeçar.`)) salvar(d.nomes.filter((_, i) => i != b.dataset.i));
   });
