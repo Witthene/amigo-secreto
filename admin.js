@@ -5,8 +5,8 @@ const sha = async s => Array.from(new Uint8Array(await crypto.subtle.digest('SHA
 
 function login(){
   tela(`${cabecalho('Painel do organizador', 'Área<em>restrita</em>')}
-    <div class="addrow"><input id="senha" type="password" placeholder="Senha"><button class="btn" id="entrar">Entrar</button></div>
-    <p class="erro" id="erro"></p>`);
+    <div class="painel"><div class="addrow"><input id="senha" type="password" placeholder="Senha"><button class="btn" id="entrar">Entrar</button></div>
+    <p class="erro" id="erro"></p></div>`);
   const ir = async () => {
     if (await sha($('#senha').value) === HASH) { sessionStorage.setItem('adm', 1); painel(); }
     else $('#erro').textContent = 'Senha errada.';
@@ -20,16 +20,16 @@ async function painel(){
   const snap = await getDoc(ref);
   const d = snap.exists() ? snap.data() : { nomes: [], disponiveis: [], rodada: 1 };
   const sorteados = d.nomes.length - d.disponiveis.length;
-  tela(`${cabecalho('Painel do organizador', 'Amigo<em>Secreto</em>')}
+  tela(`${cabecalho('Painel do organizador', 'Amigo Secreto<em>Família Sousa</em>')}<div class="painel">
     <div class="status">
       <div>${d.nomes.length}<small>Pessoas</small></div>
       <div>${sorteados}<small>Já sortearam</small></div>
     </div>
-    <div class="addrow"><input id="novo" placeholder="Adicionar nome"><button class="btn" id="add">+</button></div>
+    <div class="addrow" style="margin-top:18px"><input id="novo" placeholder="Adicionar nome"><button class="btn" id="add">+</button></div>
     <div class="lista" style="margin-top:18px">${d.nomes.map((n, i) => `<div class="linha"><span>${esc(n)}</span><button class="x" data-i="${i}">Remover</button></div>`).join('')}</div>
     <button class="btn" id="reset">Sortear novamente</button>
     <button class="btn sec" id="link">Copiar link do sorteio</button>
-    <p class="aviso">Ao adicionar ou remover nomes, ou sortear novamente,<br>o sorteio recomeça do zero para todo mundo.</p>`);
+    <p class="aviso">Ao adicionar ou remover nomes, ou sortear novamente,<br>o sorteio recomeça do zero para todo mundo.</p></div>`);
 
   // qualquer mudança na lista zera o sorteio pra não ficar ninguém de fora
   const salvar = async nomes => {

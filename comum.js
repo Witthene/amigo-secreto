@@ -16,8 +16,7 @@ export const tela = html => $('#app').innerHTML = html;
 export const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const sleep = ms => new Promise(r => setTimeout(r, ms));
 export const rnd = n => crypto.getRandomValues(new Uint32Array(1))[0] % n;
-export const cabecalho = (kicker, titulo) => `
-  <div class="selo">S</div>
+export const cabecalho = (kicker, titulo, rabisco = '') => `
   <p class="kicker">${kicker}</p>
   <h1>${titulo}</h1>
-  <div class="divisor"><span>✦</span></div>`;
+  ${rabisco ? `<p class="rabisco">${rabisco}</p>` : ''}`;

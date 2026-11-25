@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Painel · Amigo Secreto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,11 +24,11 @@
 function r(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}r();addEventListener('resize',r);
 for(let i=0;i<60;i++)f.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.4+.3,v:Math.random()*.18+.04,d:Math.random()*6});
 (function a(){x.clearRect(0,0,innerWidth,innerHeight);for(const p of f){p.y-=p.v;p.d+=.015;if(p.y<-5){p.y=innerHeight+5;p.x=Math.random()*innerWidth}
-const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(246,227,180,'+o+')';x.shadowColor='#d9b46c';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
+const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(255,255,255,'+o+')';x.shadowColor='#fff';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
 
 /* confete dourado */
 window.confete=()=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
-const g=k.getContext('2d'),cs=['#f6e3b4','#d9b46c','#b38a45','#fff','#7a2235'];let p=[];
+const g=k.getContext('2d'),cs=['#f6e3b4','#d9b46c','#b38a45','#fff','#ff4a4f'];let p=[];
 for(let i=0;i<180;i++)p.push({x:innerWidth/2,y:innerHeight*.42,vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,s:Math.random()*7+3,a:Math.random()*6,w:Math.random()*.3+.1,c:cs[i%5]});
 let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q.vx;q.y+=q.vy;q.vy+=.32;q.vx*=.985;q.a+=q.w;g.save();g.translate(q.x,q.y);g.rotate(q.a);g.scale(1,Math.cos(q.a*2));g.fillStyle=q.c;g.fillRect(-q.s/2,-q.s/4,q.s,q.s/2);g.restore()}
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};

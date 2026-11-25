@@ -1,6 +1,17 @@
 import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
+// etiquetas com os nomes da família flutuando em volta do presente
+const POS = [[2,30,-8],[78,16,7],[0,180,6],[82,170,-6],[24,252,-4],[62,250,5]];
+function etiquetas(nomes){
+  const n = [...nomes].sort(() => Math.random() - .5).slice(0, 5);
+  const tags = ['?', ...n].slice(0, 6).map((nm, i) => {
+    const [x, y, r] = POS[i];
+    const voce = i === 0;
+    return `<div class="tag${voce ? ' voce' : ''}" style="left:${x}%;top:${y}px;--r:${r}deg;--d:${3.4 + i * .4}s;margin-left:${x > 50 ? '-84px' : '0'}"><i>${voce ? '★' : esc(nm[0].toUpperCase())}</i>${voce ? 'Você' : esc(nm)}</div>`;
+  }).join('');
+  $('#palco').insertAdjacentHTML('beforeend', tags);
+}
 const chaveLocal = r => 'amigo_sousa_' + r;
 
 async function revelar(tirado, pool, suspense){
@@ -50,6 +61,7 @@ async function iniciar(){
     ${presente()}
     <div id="acao"></div>`);
 
+  if (d?.nomes?.length) etiquetas(d.nomes);
   if (!d || !d.nomes?.length) { $('#acao').innerHTML = `<p class="sub">O sorteio ainda não foi aberto.<br><b>Volte daqui a pouco.</b></p>`; return; }
 
   const salvo = localStorage.getItem(chaveLocal(d.rodada));
@@ -58,8 +70,8 @@ async function iniciar(){
   if (!d.disponiveis.length) { $('#acao').innerHTML = `<p class="sub">Todos os nomes já foram sorteados.</p>`; return; }
 
   $('#acao').innerHTML = `
-    <p class="sub">Tem um nome esperando por você aqui dentro.<br><b>Não deixe ninguém olhar.</b></p>
-    <button class="btn" id="ir">Abrir meu presente</button>
+    <p class="sub"><b>Toque em sortear</b> e descubra quem é o seu amigo secreto.<br>Não deixe ninguém espiar!</p>
+    <button class="btn" id="ir">sortear <span class="dado"></span></button>
     <p class="erro" id="erro"></p>`;
 
   const abrir = async () => {

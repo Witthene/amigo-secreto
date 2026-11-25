@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,22 +23,22 @@
       <svg viewBox="0 0 220 230">
         <defs>
           <linearGradient id="gCaixa" x1="0" x2="1">
-            <stop offset="0" stop-color="#2a0a12"/><stop offset=".45" stop-color="#5c1726"/><stop offset=".55" stop-color="#4a1220"/><stop offset="1" stop-color="#22080f"/>
+            <stop offset="0" stop-color="#b5151b"/><stop offset=".45" stop-color="#f0353b"/><stop offset=".55" stop-color="#e4262c"/><stop offset="1" stop-color="#a51218"/>
           </linearGradient>
           <linearGradient id="gTampa" x1="0" x2="1">
-            <stop offset="0" stop-color="#3a0e18"/><stop offset=".45" stop-color="#7a2235"/><stop offset=".55" stop-color="#651c2c"/><stop offset="1" stop-color="#2e0b13"/>
+            <stop offset="0" stop-color="#c41a20"/><stop offset=".45" stop-color="#ff4a4f"/><stop offset=".55" stop-color="#ee3036"/><stop offset="1" stop-color="#b0161c"/>
           </linearGradient>
           <linearGradient id="gFita" x1="0" x2="1">
-            <stop offset="0" stop-color="#8f6b2e"/><stop offset=".35" stop-color="#f6e3b4"/><stop offset=".5" stop-color="#d9b46c"/><stop offset="1" stop-color="#8f6b2e"/>
+            <stop offset="0" stop-color="#0e6b33"/><stop offset=".35" stop-color="#2fbf65"/><stop offset=".5" stop-color="#1e9b4c"/><stop offset="1" stop-color="#0e6b33"/>
           </linearGradient>
           <linearGradient id="gFitaV" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#f6e3b4"/><stop offset=".5" stop-color="#d9b46c"/><stop offset="1" stop-color="#9c7635"/>
+            <stop offset="0" stop-color="#34c76c"/><stop offset=".5" stop-color="#1e9b4c"/><stop offset="1" stop-color="#0e6b33"/>
           </linearGradient>
           <radialGradient id="gLaco" cx=".35" cy=".3" r=".8">
-            <stop offset="0" stop-color="#fff4d6"/><stop offset=".45" stop-color="#d9b46c"/><stop offset="1" stop-color="#7d5a22"/>
+            <stop offset="0" stop-color="#5fe08f"/><stop offset=".45" stop-color="#1e9b4c"/><stop offset="1" stop-color="#0b5a2a"/>
           </radialGradient>
           <pattern id="gPadrao" width="14" height="14" patternUnits="userSpaceOnUse">
-            <circle cx="7" cy="7" r="1" fill="#d9b46c" opacity=".18"/>
+            <circle cx="7" cy="7" r="1.2" fill="#fff" opacity=".12"/>
           </pattern>
         </defs>
         <!-- corpo -->
@@ -58,8 +58,8 @@
           <!-- alças do laço -->
           <path d="M110 76 C88 40 46 44 56 66 C62 80 90 82 110 78Z" fill="url(#gLaco)"/>
           <path d="M110 76 C132 40 174 44 164 66 C158 80 130 82 110 78Z" fill="url(#gLaco)"/>
-          <path d="M108 74 C92 52 66 52 68 64" stroke="#7d5a22" stroke-width="1.5" fill="none" opacity=".6"/>
-          <path d="M112 74 C128 52 154 52 152 64" stroke="#7d5a22" stroke-width="1.5" fill="none" opacity=".6"/>
+          <path d="M108 74 C92 52 66 52 68 64" stroke="#0b5a2a" stroke-width="1.5" fill="none" opacity=".6"/>
+          <path d="M112 74 C128 52 154 52 152 64" stroke="#0b5a2a" stroke-width="1.5" fill="none" opacity=".6"/>
           <ellipse cx="110" cy="77" rx="11" ry="9" fill="url(#gLaco)"/>
           <ellipse cx="107" cy="74" rx="4" ry="2.5" fill="#fff" opacity=".55"/>
         </g>
@@ -74,11 +74,11 @@
 function r(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}r();addEventListener('resize',r);
 for(let i=0;i<60;i++)f.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.4+.3,v:Math.random()*.18+.04,d:Math.random()*6});
 (function a(){x.clearRect(0,0,innerWidth,innerHeight);for(const p of f){p.y-=p.v;p.d+=.015;if(p.y<-5){p.y=innerHeight+5;p.x=Math.random()*innerWidth}
-const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(246,227,180,'+o+')';x.shadowColor='#d9b46c';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
+const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(255,255,255,'+o+')';x.shadowColor='#fff';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
 
 /* confete dourado */
 window.confete=()=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
-const g=k.getContext('2d'),cs=['#f6e3b4','#d9b46c','#b38a45','#fff','#7a2235'];let p=[];
+const g=k.getContext('2d'),cs=['#f6e3b4','#d9b46c','#b38a45','#fff','#ff4a4f'];let p=[];
 for(let i=0;i<180;i++)p.push({x:innerWidth/2,y:innerHeight*.42,vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,s:Math.random()*7+3,a:Math.random()*6,w:Math.random()*.3+.1,c:cs[i%5]});
 let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q.vx;q.y+=q.vy;q.vy+=.32;q.vx*=.985;q.a+=q.w;g.save();g.translate(q.x,q.y);g.rotate(q.a);g.scale(1,Math.cos(q.a*2));g.fillStyle=q.c;g.fillRect(-q.s/2,-q.s/4,q.s,q.s/2);g.restore()}
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
