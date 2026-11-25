@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amigo Secreto da Família</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0d0b10;--card:#17131c;--gold:#d8b46a;--red:#b3263a;--txt:#efe9f2;--mut:#9a90a3;--line:#2c2433}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:radial-gradient(circle at 20% 0%,#2a1420 0%,transparent 50%),radial-gradient(circle at 90% 100%,#1c1a2e 0%,transparent 50%),var(--bg);color:var(--txt);font-family:Inter,sans-serif;display:flex;justify-content:center;align-items:center;padding:24px}
+  .card{width:100%;max-width:520px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:36px 28px;box-shadow:0 30px 80px #0008;text-align:center}
+  h1{font-family:'Playfair Display',serif;font-size:2.1rem;color:var(--gold);margin-bottom:6px}
+  h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:6px}
+  .sub{color:var(--mut);margin-bottom:22px;font-size:.95rem;line-height:1.5}
+  textarea,input{width:100%;background:#0f0c13;border:1px solid var(--line);border-radius:14px;color:var(--txt);padding:14px;font:inherit}
+  textarea{min-height:200px;resize:vertical}
+  input{text-align:center;font-size:1.6rem;letter-spacing:.5em}
+  button{margin-top:16px;width:100%;padding:15px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--red),#7d1526);color:#fff;font-weight:600;font-size:1rem;cursor:pointer;transition:transform .15s,opacity .15s}
+  button:hover{transform:translateY(-2px)}
+  button:disabled{opacity:.5;cursor:default;transform:none}
+  button.sec{background:#2c2433}
+  .nomes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .nomes button{margin:0;padding:14px 10px;background:#0f0c13;border:1px solid var(--line)}
+  .nomes button:hover{border-color:var(--gold)}
+  .roleta{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--mut);height:70px;line-height:70px;margin:20px 0}
+  .nome{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--gold);margin:14px 0;animation:surge .8s ease}
+  @keyframes surge{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+  .presente{font-size:4rem;margin:6px 0 10px}
+  .aviso{color:var(--mut);font-size:.85rem;margin-top:16px;line-height:1.5}
+  .link{word-break:break-all;background:#0f0c13;border:1px dashed var(--gold);border-radius:12px;padding:12px;margin-top:16px;font-size:.85rem;color:var(--gold)}
+  .erro{color:#ff7a8a;margin-top:12px;font-size:.9rem}
+  .hide{display:none!important}
+  .prog{color:var(--mut);font-size:.85rem;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="card" id="app"><p class="sub">Carregando...</p></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyDaj2LMBuPj_sXqnhfVRJR70vLE99YmY7c",
+  authDomain: "amigo-secreto-8ca24.firebaseapp.com",
+  projectId: "amigo-secreto-8ca24",
+  storageBucket: "amigo-secreto-8ca24.firebasestorage.app",
+  messagingSenderId: "858994116965",
+  appId: "1:858994116965:web:7384db58be184add1f398c"
+});
+const db = getFirestore(app);
+const $ = s => document.querySelector(s);
+const tela = html => $('#app').innerHTML = html;
+const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gid = new URLSearchParams(location.search).get('g');
+
+// ---------- criptografia: resultado trancado com a senha da pessoa ----------
+const b64 = b => btoa(String.fromCharCode(...new Uint8Array(b)));
+const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function chave(pin, nome){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2', salt:new TextEncoder().encode(gid+'|'+nome), iterations:300000, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['encrypt','decrypt']);
+}
+async function trancar(texto, pin, nome){
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt({name:'AES-GCM', iv}, await chave(pin, nome), new TextEncoder().encode(texto));
+  return b64(iv) + '.' + b64(ct);
+}
+async function destrancar(dado, pin, nome){
+  const [iv, ct] = dado.split('.');
+  const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:unb64(iv)}, await chave(pin, nome), unb64(ct));
+  return new TextDecoder().decode(pt);
+}
+const rnd = n => crypto.getRandomValues(new Uint32Array(1))[0] % n;
+
+// ---------- organizador ----------
+function telaCriar(){
+  tela(`
+    <h1>Amigo Secreto</h1>
+    <p class="sub">Digite o nome de cada pessoa da família, um por linha.</p>
+    <textarea id="nomes" placeholder="Maria&#10;João&#10;Vó Lúcia&#10;..."></textarea>
+    <button id="criar">Criar sorteio</button>
+    <p class="erro" id="erro"></p>`);
+  $('#criar').onclick = async () => {
+    const nomes = [...new Set($('#nomes').value.split('\n').map(n => n.trim()).filter(Boolean))];
+    if (nomes.length < 3) { $('#erro').textContent = 'Coloque pelo menos 3 nomes diferentes.'; return; }
+    $('#criar').disabled = true;
+    const id = Array.from(crypto.getRandomValues(new Uint8Array(8)), b => b.toString(36).padStart(2,'0')).join('').slice(0,12);
+    await setDoc(doc(db, 'sorteios', id), { nomes, jaSortearam: [], disponiveis: nomes, cofre: {}, criado: Date.now() });
+    const link = location.origin + location.pathname + '?g=' + id;
+    tela(`
+      <h1>Sorteio criado!</h1>
+      <p class="sub">Mande este link no grupo da família. Cada um entra quando quiser, clica no próprio nome e sorteia.</p>
+      <div class="link">${link}</div>
+      <button id="copiar">Copiar link</button>
+      <button class="sec" onclick="location.href='${link}'">Abrir o sorteio</button>
+      <p class="aviso">Ninguém, nem você, consegue ver quem tirou quem. Cada resultado fica trancado com a senha de quem sorteou.</p>`);
+    $('#copiar').onclick = () => { navigator.clipboard.writeText(link); $('#copiar').textContent = 'Copiado!'; };
+  };
+}
+
+// ---------- participante ----------
+let dados;
+async function telaInicio(){
+  const snap = await getDoc(doc(db, 'sorteios', gid));
+  if (!snap.exists()) { tela(`<h1>Ops!</h1><p class="sub">Esse sorteio não existe.</p>`); return; }
+  dados = snap.data();
+  const faltam = dados.nomes.filter(n => !dados.jaSortearam.includes(n));
+  tela(`
+    <h1>Amigo Secreto</h1>
+    <p class="sub">${faltam.length ? 'Quem é você? Clique no seu nome.' : 'Todo mundo já sorteou! 🎉'}</p>
+    <div class="nomes">${faltam.map(n => `<button data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div>
+    ${dados.jaSortearam.length ? `<button class="sec" id="rever">Já sorteei, quero ver de novo</button>` : ''}
+    <p class="prog">${dados.jaSortearam.length} de ${dados.nomes.length} já sortearam</p>`);
+  document.querySelectorAll('.nomes button').forEach(b => b.onclick = () => telaSenha(b.dataset.n));
+  if ($('#rever')) $('#rever').onclick = telaRever;
+}
+
+function telaSenha(nome){
+  tela(`
+    <h2>Olá, ${esc(nome)}!</h2>
+    <p class="sub">Crie uma senha de 4 números. Ela serve pra você ver seu amigo secreto de novo depois, então não esqueça!</p>
+    <input id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+    <button id="ir">Sortear meu amigo secreto 🎁</button>
+    <button class="sec" id="volta">Não sou eu, voltar</button>
+    <p class="erro" id="erro"></p>`);
+  $('#pin').focus();
+  $('#volta').onclick = telaInicio;
+  $('#ir').onclick = async () => {
+    const pin = $('#pin').value;
+    if (!/^\d{4}$/.test(pin)) { $('#erro').textContent = 'A senha precisa ter 4 números.'; return; }
+    $('#ir').disabled = true;
+    try {
+      const ref = doc(db, 'sorteios', gid);
+      const tirado = await runTransaction(db, async tx => {
+        const d = (await tx.get(ref)).data();
+        if (d.jaSortearam.includes(nome)) throw new Error('ja');
+        const faltam = d.nomes.filter(n => !d.jaSortearam.includes(n));
+        const outro = faltam.find(n => n !== nome);
+        let opcoes = d.disponiveis.filter(n => n !== nome);
+        // se só faltam 2 pessoas, garante que a última não fique só com o próprio nome
+        if (faltam.length === 2 && d.disponiveis.includes(outro)) opcoes = [outro];
+        const t = opcoes[rnd(opcoes.length)];
+        const cofre = { ...d.cofre, [nome]: await trancar(t, pin, nome) };
+        tx.update(ref, { jaSortearam: [...d.jaSortearam, nome], disponiveis: d.disponiveis.filter(n => n !== t), cofre });
+        return t;
+      });
+      roleta(nome, tirado);
+    } catch (e) {
+      $('#erro').textContent = e.message === 'ja' ? 'Você já sorteou! Use o botão de ver de novo.' : 'Deu erro, tenta de novo.';
+      $('#ir').disabled = false;
+    }
+  };
+}
+
+function roleta(nome, tirado){
+  tela(`<h2>Sorteando...</h2><div class="roleta" id="rol"></div>`);
+  const pool = dados.nomes.filter(n => n !== nome);
+  let i = 0, vel = 60;
+  const gira = () => {
+    $('#rol').textContent = pool[i++ % pool.length];
+    vel *= 1.12;
+    if (vel < 450) setTimeout(gira, vel); else mostrar(tirado);
+  };
+  gira();
+}
+
+function mostrar(tirado){
+  tela(`
+    <div class="presente">🎁</div>
+    <p class="sub">Seu amigo secreto é</p>
+    <div class="nome">${esc(tirado)}</div>
+    <p class="aviso">Guarde segredo! 🤫 Se quiser ver de novo, entre no link e use "Já sorteei" com a sua senha.</p>
+    <button class="sec" id="fim">Fechar</button>`);
+  $('#fim').onclick = telaInicio;
+}
+
+function telaRever(){
+  tela(`
+    <h2>Ver de novo</h2>
+    <p class="sub">Escolha seu nome e digite sua senha.</p>
+    <div class="nomes">${dados.jaSortearam.map(n => `<button data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div>
+    <button class="sec" id="volta">Voltar</button>`);
+  $('#volta').onclick = telaInicio;
+  document.querySelectorAll('.nomes button').forEach(b => b.onclick = () => {
+    const nome = b.dataset.n;
+    tela(`
+      <h2>${esc(nome)}</h2>
+      <p class="sub">Digite sua senha de 4 números.</p>
+      <input id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+      <button id="ver">Ver meu amigo secreto</button>
+      <button class="sec" id="volta">Voltar</button>
+      <p class="erro" id="erro"></p>`);
+    $('#pin').focus();
+    $('#volta').onclick = telaRever;
+    $('#ver').onclick = async () => {
+      try {
+        const d = (await getDoc(doc(db, 'sorteios', gid))).data();
+        mostrar(await destrancar(d.cofre[nome], $('#pin').value, nome));
+      } catch { $('#erro').textContent = 'Senha errada.'; }
+    };
+  });
+}
+
+if (gid) telaInicio(); else telaCriar();
+</script>
+</body>
+</html>
