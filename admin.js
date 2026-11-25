@@ -5,10 +5,10 @@ const sha = async s => Array.from(new Uint8Array(await crypto.subtle.digest('SHA
 
 function login(){
   tela(`${cabecalho('Painel do organizador', 'Área<em>restrita</em>')}
-    <div class="painel"><div class="addrow"><input id="senha" type="password" placeholder="Senha"><button class="btn" id="entrar">Entrar</button></div>
+    <div class="painel"><div class="addrow"><input id="senha" type="text" autocomplete="off" placeholder="Digite a senha"><button class="btn" id="entrar">Entrar</button></div>
     <p class="erro" id="erro"></p></div>`);
   const ir = async () => {
-    if (await sha($('#senha').value) === HASH) { sessionStorage.setItem('adm', 1); painel(); }
+    if (await sha($('#senha').value.toLowerCase().replace(/\s/g,'')) === HASH) { sessionStorage.setItem('adm', 1); painel(); }
     else $('#erro').textContent = 'Senha errada.';
   };
   $('#entrar').onclick = ir;
