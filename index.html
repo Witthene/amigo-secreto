@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Amigo Secreto da Família</title>
+<title>Amigo Secreto da Família Sousa</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#05070f;--card:#0c1020;--gold:#e8c878;--red:#c9a24e;--green:#1a2140;--txt:#f3eee2;--mut:#9aa0b8;--line:#232a45}
@@ -101,7 +101,7 @@ const rnd = n => crypto.getRandomValues(new Uint32Array(1))[0] % n;
 // ---------- organizador ----------
 function telaCriar(){
   tela(`
-    <p class="topo">Réveillon em família · 2027</p><h1>Amigo Secreto</h1>
+    <p class="topo">Réveillon em família · 2027</p><h1>Amigo Secreto da Família Sousa</h1>
     <p class="sub">Digite o nome de cada pessoa da família, um por linha.</p>
     <textarea id="nomes" placeholder="Maria&#10;João&#10;Vó Lúcia&#10;..."></textarea>
     <button id="criar">Criar sorteio</button>
@@ -136,7 +136,7 @@ async function telaInicio(){
   dados = snap.data();
   const faltam = dados.nomes.filter(n => !dados.jaSortearam.includes(n));
   tela(`
-    <p class="topo">Réveillon em família · 2027</p><h1>Amigo Secreto</h1>
+    <p class="topo">Réveillon em família · 2027</p><h1>Amigo Secreto da Família Sousa</h1>
     <p class="sub">${faltam.length ? 'Quem é você? Clique no seu nome.' : 'Todo mundo já sorteou! 🎉'}</p>
     <div class="nomes">${faltam.map(n => `<button data-n="${esc(n)}">${esc(n)}</button>`).join('')}</div>
     ${dados.jaSortearam.length ? `<button class="sec" id="rever">Já sorteei, quero ver de novo</button>` : ''}
@@ -244,7 +244,7 @@ async function telaPessoal(){
     return;
   }
   tela(`
-    <p class="topo">Réveillon 2027</p><h1>Olá, ${esc(nome)}!</h1>
+    <p class="topo">Amigo Secreto da Família Sousa</p><h1>Olá, ${esc(nome)}!</h1>
     <p class="sub">Aperte o botão pra descobrir seu amigo secreto.<br>Não deixe ninguém olhar!</p>
     <div class="presente">🎁</div>
     <button id="ir">Sortear</button>
