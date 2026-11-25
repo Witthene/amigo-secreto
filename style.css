@@ -148,3 +148,6 @@
   .etiqueta .nome{text-shadow:0 3px 0 rgba(228,38,44,.15)}
   .painel{box-shadow:inset 0 -4px 0 rgba(0,0,0,.05),0 26px 50px rgba(0,0,0,.28),0 6px 14px rgba(0,0,0,.12)}
   .status div{box-shadow:inset 0 2px 0 rgba(255,255,255,.08),0 5px 0 #0a3d23}
+
+  .luzdentro{opacity:0;transition:opacity .6s .3s;filter:blur(6px)}
+  .palco.aberto .luzdentro{opacity:.7}
