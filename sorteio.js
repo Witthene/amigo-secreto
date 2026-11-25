@@ -2,13 +2,13 @@ import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } 
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
-const POS = [[2,30,-8],[78,16,7],[0,180,6],[82,170,-6],[24,252,-4],[62,250,5]];
+const POS = [[0,20,-8],[100,6,7],[0,150,6],[100,136,-6],[4,262,-4],[96,258,5]];
 function etiquetas(nomes){
   const n = [...nomes].sort(() => Math.random() - .5).slice(0, 5);
   const tags = ['?', ...n].slice(0, 6).map((nm, i) => {
     const [x, y, r] = POS[i];
     const voce = i === 0;
-    return `<div class="tag${voce ? ' voce' : ''}" style="left:${x}%;top:${y}px;--r:${r}deg;--d:${3.4 + i * .4}s;margin-left:${x > 50 ? '-84px' : '0'}"><i>${voce ? '★' : esc(nm[0].toUpperCase())}</i>${voce ? 'Você' : esc(nm)}</div>`;
+    return `<div class="tag${voce ? ' voce' : ''}" style="left:${x}%;top:${y}px;--r:${r}deg;--d:${3.4 + i * .4}s;margin-left:${x > 50 ? '-84px' : '0'};z-index:${i>3?3:1}"><i>${voce ? '★' : esc(nm[0].toUpperCase())}</i>${voce ? 'Você' : esc(nm)}</div>`;
   }).join('');
   $('#palco').insertAdjacentHTML('beforeend', tags);
 }
