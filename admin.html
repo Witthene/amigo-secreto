@@ -5,20 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Painel · Amigo Secreto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1125130509">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1125131839">
 </head>
 <body>
 <canvas id="brilhos"></canvas>
 
-<div class="deco" aria-hidden="true">
-  <svg class="d1" viewBox="0 0 100 100"><defs><radialGradient id="esf1" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ffd1d1"/><stop offset=".4" stop-color="#ff4d4f"/><stop offset="1" stop-color="#a3111a"/></radialGradient></defs><circle cx="50" cy="50" r="42" fill="url(#esf1)"/><ellipse cx="36" cy="32" rx="12" ry="7" fill="#fff" opacity=".6"/></svg>
-  <svg class="d2" viewBox="0 0 100 100"><defs><linearGradient id="est" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3a6"/><stop offset=".5" stop-color="#ffc72c"/><stop offset="1" stop-color="#e09a00"/></linearGradient></defs><path d="M50 6 L62 36 L94 38 L69 58 L78 90 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="url(#est)" stroke="#c98500" stroke-width="2" stroke-linejoin="round"/><path d="M50 6 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="#fff" opacity=".18"/></svg>
-  <svg class="d3" viewBox="0 0 100 100"><defs><radialGradient id="esf2" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff8d6"/><stop offset=".45" stop-color="#ffc72c"/><stop offset="1" stop-color="#c98500"/></radialGradient></defs><circle cx="50" cy="50" r="40" fill="url(#esf2)"/><ellipse cx="36" cy="32" rx="11" ry="6" fill="#fff" opacity=".7"/></svg>
-  <svg class="d4" viewBox="0 0 100 100"><defs><linearGradient id="est2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfe9d8"/></linearGradient></defs><path d="M50 6 L62 36 L94 38 L69 58 L78 90 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="url(#est2)" stroke="#a9d3b8" stroke-width="2" stroke-linejoin="round"/></svg>
-  <svg class="d5" viewBox="0 0 100 100"><path d="M10 60 Q30 20 50 50 T90 40" stroke="#ffc72c" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
-  <svg class="d6" viewBox="0 0 100 100"><path d="M10 50 Q30 20 50 50 T90 50" stroke="#ff5a5f" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
-</div><main class="convite">
+<main class="convite">
   <i class="canto a"></i><i class="canto b"></i><i class="canto c"></i><i class="canto d"></i>
   <div id="app"><p class="sub">Carregando...</p></div>
 </main>
@@ -31,7 +24,7 @@
 function r(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}r();addEventListener('resize',r);
 for(let i=0;i<60;i++)f.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.4+.3,v:Math.random()*.18+.04,d:Math.random()*6});
 (function a(){x.clearRect(0,0,innerWidth,innerHeight);for(const p of f){p.y-=p.v;p.d+=.015;if(p.y<-5){p.y=innerHeight+5;p.x=Math.random()*innerWidth}
-const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(255,255,255,'+o+')';x.shadowColor='#fff';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
+const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(241,226,189,'+o+')';x.shadowColor='#d6ba82';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
 
 /* confete dourado */
 window.confete=()=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
@@ -41,6 +34,6 @@ let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
-<script type="module" src="admin.js?v=1125130509"></script>
+<script type="module" src="admin.js?v=1125131839"></script>
 </body>
 </html>

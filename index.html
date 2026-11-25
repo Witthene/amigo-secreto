@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;900&family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1125130509">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1125131839">
 </head>
 <body>
 <div id="abertura" class="abertura">
-  <video id="fundoVid" src="midia/abertura.mp4?v=1125130509" muted playsinline preload="auto" aria-hidden="true"></video>
-  <video id="vid" src="midia/abertura.mp4?v=1125130509" playsinline preload="auto" poster="midia/capa.jpg"></video>
+  <video id="fundoVid" src="midia/abertura.mp4?v=1125131839" muted playsinline preload="auto" aria-hidden="true"></video>
+  <video id="vid" src="midia/abertura.mp4?v=1125131839" playsinline preload="auto" poster="midia/capa.jpg"></video>
   <div class="capaIntro" id="capaIntro">
     <p class="kicker">Família Sousa apresenta</p>
     <h1>Amigo<em>Secreto</em></h1>
@@ -48,19 +48,30 @@ document.body.classList.add('intro');
 </script>
 <canvas id="brilhos"></canvas>
 
-<div class="deco" aria-hidden="true">
-  <svg class="d1" viewBox="0 0 100 100"><defs><radialGradient id="esf1" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ffd1d1"/><stop offset=".4" stop-color="#ff4d4f"/><stop offset="1" stop-color="#a3111a"/></radialGradient></defs><circle cx="50" cy="50" r="42" fill="url(#esf1)"/><ellipse cx="36" cy="32" rx="12" ry="7" fill="#fff" opacity=".6"/></svg>
-  <svg class="d2" viewBox="0 0 100 100"><defs><linearGradient id="est" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3a6"/><stop offset=".5" stop-color="#ffc72c"/><stop offset="1" stop-color="#e09a00"/></linearGradient></defs><path d="M50 6 L62 36 L94 38 L69 58 L78 90 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="url(#est)" stroke="#c98500" stroke-width="2" stroke-linejoin="round"/><path d="M50 6 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="#fff" opacity=".18"/></svg>
-  <svg class="d3" viewBox="0 0 100 100"><defs><radialGradient id="esf2" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff8d6"/><stop offset=".45" stop-color="#ffc72c"/><stop offset="1" stop-color="#c98500"/></radialGradient></defs><circle cx="50" cy="50" r="40" fill="url(#esf2)"/><ellipse cx="36" cy="32" rx="11" ry="6" fill="#fff" opacity=".7"/></svg>
-  <svg class="d4" viewBox="0 0 100 100"><defs><linearGradient id="est2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfe9d8"/></linearGradient></defs><path d="M50 6 L62 36 L94 38 L69 58 L78 90 L50 72 L22 90 L31 58 L6 38 L38 36Z" fill="url(#est2)" stroke="#a9d3b8" stroke-width="2" stroke-linejoin="round"/></svg>
-  <svg class="d5" viewBox="0 0 100 100"><path d="M10 60 Q30 20 50 50 T90 40" stroke="#ffc72c" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
-  <svg class="d6" viewBox="0 0 100 100"><path d="M10 50 Q30 20 50 50 T90 50" stroke="#ff5a5f" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
-</div><main class="convite">
+<main class="convite">
   <i class="canto a"></i><i class="canto b"></i><i class="canto c"></i><i class="canto d"></i>
   <div id="app"><p class="sub">Carregando...</p></div>
 </main>
 
-<template id="tplPresente"><div class="palco" id="palco"><div class="raios"></div><div class="halo"></div><div class="caixa"></div></div></template>
+<template id="tplPresente"><div class="palco" id="palco">
+  <div class="halo"></div><div class="chao"></div>
+  <div class="env">
+    <div class="env-fundo"></div>
+    <div class="env-cartao"><small>Você tirou</small><div class="nome" id="nm"></div></div>
+    <div class="env-frente"><svg viewBox="0 0 300 196" preserveAspectRatio="none">
+      <defs><linearGradient id="gF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1e23"/><stop offset="1" stop-color="#0f0f12"/></linearGradient></defs>
+      <path d="M0 0 L150 112 L300 0 L300 196 L0 196Z" fill="url(#gF)"/>
+      <path d="M0 196 L150 106 L300 196" fill="none" stroke="#d6ba82" stroke-opacity=".45" stroke-width="1"/>
+      <path d="M0.5 0.5 L150 112 L299.5 0.5" fill="none" stroke="#d6ba82" stroke-opacity=".3" stroke-width="1"/>
+      <rect x="0.5" y="0.5" width="299" height="195" rx="6" fill="none" stroke="#d6ba82" stroke-opacity=".55" stroke-width="1"/>
+    </svg></div>
+    <div class="env-aba"><svg viewBox="0 0 300 118" preserveAspectRatio="none">
+      <defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26262c"/><stop offset="1" stop-color="#18181c"/></linearGradient></defs>
+      <path d="M0 0 L300 0 L150 118Z" fill="url(#gA)" stroke="#d6ba82" stroke-opacity=".6" stroke-width="1" stroke-linejoin="round"/>
+    </svg></div>
+    <div class="lacre">S</div>
+  </div>
+</div></template>
 
 <script>
 /* brilhos dourados no fundo */
@@ -68,19 +79,17 @@ document.body.classList.add('intro');
 function r(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}r();addEventListener('resize',r);
 for(let i=0;i<60;i++)f.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.4+.3,v:Math.random()*.18+.04,d:Math.random()*6});
 (function a(){x.clearRect(0,0,innerWidth,innerHeight);for(const p of f){p.y-=p.v;p.d+=.015;if(p.y<-5){p.y=innerHeight+5;p.x=Math.random()*innerWidth}
-const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(255,255,255,'+o+')';x.shadowColor='#fff';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
+const o=.18+Math.sin(p.d)*.16;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(241,226,189,'+o+')';x.shadowColor='#d6ba82';x.shadowBlur=6;x.fill()}requestAnimationFrame(a)})()})();
 
 /* confete dourado */
 window.confete=()=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
 const g=k.getContext('2d'),cs=['#f6e3b4','#d9b46c','#b38a45','#fff','#ff4a4f'];let p=[];
-for(let i=0;i<180;i++)p.push({x:innerWidth/2,y:innerHeight*.42,vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,s:Math.random()*7+3,a:Math.random()*6,w:Math.random()*.3+.1,c:cs[i%5]});
+for(let i=0;i<90;i++)p.push({x:innerWidth/2,y:innerHeight*.42,vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,s:Math.random()*7+3,a:Math.random()*6,w:Math.random()*.3+.1,c:cs[i%5]});
 let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q.vx;q.y+=q.vy;q.vy+=.32;q.vx*=.985;q.a+=q.w;g.save();g.translate(q.x,q.y);g.rotate(q.a);g.scale(1,Math.cos(q.a*2));g.fillStyle=q.c;g.fillRect(-q.s/2,-q.s/4,q.s,q.s/2);g.restore()}
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-<script type="module" src="gift3d.js?v=1125130509"></script>
-<script type="module" src="audio.js?v=1125130509"></script>
-<script type="module" src="sorteio.js?v=1125130509"></script>
+<script type="module" src="audio.js?v=1125131839"></script>
+<script type="module" src="sorteio.js?v=1125131839"></script>
 </body>
 </html>

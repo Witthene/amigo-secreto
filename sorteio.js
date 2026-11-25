@@ -1,4 +1,4 @@
-import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=11251222';
+import { ref, getDoc, runTransaction, db, $, tela, esc, sleep, rnd, cabecalho } from './comum.js?v=1125131839';
 
 const presente = () => document.getElementById('tplPresente').innerHTML;
 // etiquetas com os nomes da família flutuando em volta do presente
@@ -18,28 +18,25 @@ const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().repla
 async function revelar(tirado, dica, pool, suspense){
   const palco = $('#palco');
   palco.classList.remove('treme'); palco.classList.add('aberto');
-  $('#acao').innerHTML = `<div class="etiqueta" id="etq"><small>Você tirou</small><div class="nome" id="nm"></div>
-      <div class="dica hide" id="dc"><small>Dica de presente</small><p></p></div></div>
-    <p class="aviso">Guarde segredo até o grande dia.<br>Abra este link de novo neste celular pra rever e ver se a dica chegou.</p>`;
-  await sleep(350); $('#etq').classList.add('mostra');
+  $('#acao').innerHTML = `<div class="etiqueta" id="etq"><small>Dica de presente</small><p id="dcp"></p></div>
+    <p class="aviso">Guarde segredo até o grande dia.<br>Abra este link de novo neste celular para rever.</p>`;
+  $('#dcp').textContent = dica || `${tirado} ainda não deixou uma dica. Volte mais tarde.`;
   const nm = $('#nm');
+  await sleep(suspense ? 900 : 0);
   if (suspense && pool.length > 1) {
     nm.classList.add('girando');
-    let v = 50, i = rnd(pool.length);
-    while (v < 380) { nm.textContent = pool[i++ % pool.length]; await sleep(v); v *= 1.13; }
+    let v = 70, i = rnd(pool.length);
+    while (v < 420) { nm.textContent = pool[i++ % pool.length]; await sleep(v); v *= 1.12; }
     nm.classList.remove('girando');
   }
   nm.textContent = tirado;
-  const dc = $('#dc');
-  dc.querySelector('p').textContent = dica || `${tirado} ainda não deixou uma dica. Volte depois!`;
-  dc.classList.remove('hide');
+  $('#etq').classList.add('mostra');
   if (suspense) confete();
 }
-
 async function iniciar(){
   const snap = await getDoc(ref);
   const d = snap.exists() ? snap.data() : null;
-  tela(`${cabecalho('Amigo Secreto da Família Sousa', 'Quem você vai<em>tirar este ano?</em>', 'a surpresa começa <b>agora!</b>')}
+  tela(`${cabecalho('Família Sousa', 'Amigo<em>Secreto</em>')}
     ${presente()}
     <div id="acao"></div>`);
 
@@ -56,7 +53,7 @@ async function iniciar(){
       <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>O que você gostaria de ganhar?</label>
       <textarea id="dica" maxlength="200" placeholder="Ex.: livro, perfume, algo de cozinha, tamanho M..."></textarea>
     </div>
-    <button class="btn" id="ir">sortear <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg></button>
+    <button class="btn" id="ir">Abrir envelope <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></button>
     <p class="erro" id="erro"></p>`;
 
   $('#ir').onclick = async () => {
