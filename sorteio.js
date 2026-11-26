@@ -60,7 +60,7 @@ async function revelar(tirado, dica, pool, suspense){
   await sleep(900 + tirado.length * 100);
   confete();
   await sleep(1400);
-  await Promise.all([legenda('Shhh... é segredo, tá? Não conta pra ninguém.', 3400), window.som && som.fala(3)]);
+  await Promise.all([legenda('É segredo, tá? Não conta pra ninguém.', 3400), window.som && som.fala(3)]);
   // 6. volta pra tela calma com a dica
   document.body.classList.remove('cena'); document.body.classList.add('revelado');
   await sleep(600);
