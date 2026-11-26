@@ -6,12 +6,12 @@
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1126114500">
+<link rel="stylesheet" href="style.css?v=1126120000">
 </head>
 <body>
 <div id="abertura" class="abertura">
   
-  <video id="vid" src="midia/abertura.mp4?v=1126114500" playsinline preload="auto"></video>
+  <video id="vid" src="midia/abertura.mp4?v=1126120000" playsinline preload="metadata"></video>
   <div class="capaIntro" id="capaIntro">
     <canvas id="poeiraIntro"></canvas>
     <p class="kicker">Família Sousa apresenta</p>
@@ -93,16 +93,16 @@ document.body.classList.add('intro');
       <radialGradient id="cera" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#fff1c8"/><stop offset=".3" stop-color="#e0c180"/><stop offset=".7" stop-color="#a5844b"/><stop offset="1" stop-color="#6e5428"/></radialGradient>
       <radialGradient id="ceraIn" cx=".5" cy=".5" r=".5"><stop offset=".6" stop-color="#c7a666"/><stop offset="1" stop-color="#8a6c37"/></radialGradient>
     </defs></svg>
-    <div class="env-fundo"><svg viewBox="0 0 300 196" preserveAspectRatio="none"><rect width="300" height="196" rx="6" fill="#0c0c0f" filter="url(#papel)"/></svg></div>
+    <div class="env-fundo"><svg viewBox="0 0 300 196" preserveAspectRatio="none"><rect width="300" height="196" rx="6" fill="#0c0c0f"/></svg></div>
     <div class="env-cartao"><small>Você tirou</small><div class="nome" id="nm"></div><i class="filete"></i></div>
     <div class="env-frente"><svg viewBox="0 0 300 196" preserveAspectRatio="none">
       <!-- abas laterais -->
-      <path d="M0 0 L132 104 Q150 116 132 124 L0 196Z" fill="url(#gL)" filter="url(#papel)"/>
-      <path d="M300 0 L168 104 Q150 116 168 124 L300 196Z" fill="url(#gR)" filter="url(#papel)"/>
+      <path d="M0 0 L132 104 Q150 116 132 124 L0 196Z" fill="url(#gL)"/>
+      <path d="M300 0 L168 104 Q150 116 168 124 L300 196Z" fill="url(#gR)"/>
       <!-- sombra da aba de baixo sobre as laterais -->
       <path d="M0 196 L150 100 L300 196Z" fill="#000" opacity=".55" filter="url(#sombraAba)" transform="translate(0,-4)"/>
       <!-- aba de baixo -->
-      <path d="M0 196 L140 104 Q150 98 160 104 L300 196Z" fill="url(#gF)" filter="url(#papel)"/>
+      <path d="M0 196 L140 104 Q150 98 160 104 L300 196Z" fill="url(#gF)"/>
       <path d="M2 195 L140 104 Q150 98 160 104 L298 195" fill="none" stroke="url(#ouro)" stroke-width="1.1" opacity=".85"/>
       <path d="M1 1 L132 104" stroke="url(#ouro)" stroke-width=".7" opacity=".45"/><path d="M299 1 L168 104" stroke="url(#ouro)" stroke-width=".7" opacity=".45"/>
       <!-- borda em ouro com filete duplo -->
@@ -111,7 +111,7 @@ document.body.classList.add('intro');
     </svg></div>
     <div class="env-aba"><svg viewBox="0 0 300 124" preserveAspectRatio="none">
       <path d="M4 2 L150 124 L296 2Z" fill="#000" opacity=".6" filter="url(#sombraAba)" transform="translate(0,6)"/>
-      <path d="M0 0 L300 0 L162 112 Q150 122 138 112Z" fill="url(#gA)" filter="url(#papel)"/>
+      <path d="M0 0 L300 0 L162 112 Q150 122 138 112Z" fill="url(#gA)"/>
       <path d="M1 1 L138 112 Q150 122 162 112 L299 1" fill="none" stroke="url(#ouro)" stroke-width="1.3"/>
       <path d="M0 .5 L300 .5" stroke="#fff" stroke-opacity=".12"/>
     </svg></div>
@@ -146,7 +146,7 @@ if(vivo)requestAnimationFrame(d);else k.remove()})()};
 /* envelope acompanha o movimento do mouse / celular */
 (()=>{let rx=0,ry=0,tx=0,ty=0;const set=(a,b)=>{tx=a;ty=b};
 addEventListener('mousemove',e=>set((e.clientY/innerHeight-.5)*-10,(e.clientX/innerWidth-.5)*14));
-addEventListener('deviceorientation',e=>{if(e.beta!=null)set(Math.max(-10,Math.min(10,(e.beta-45)*-.3)),Math.max(-14,Math.min(14,e.gamma*.4)))});
+if(matchMedia('(pointer:coarse)').matches)return;
 (function a(){if(Math.abs(tx-rx)+Math.abs(ty-ry)<.02){requestAnimationFrame(a);return}rx+=(tx-rx)*.06;ry+=(ty-ry)*.06;document.documentElement.style.setProperty('--rx',rx.toFixed(2)+'deg');document.documentElement.style.setProperty('--ry',ry.toFixed(2)+'deg');requestAnimationFrame(a)})()})();window.confete=()=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
 const g=k.getContext('2d'),cs=['#f6e3b4','#d9b46c','#b38a45','#fff','#ff4a4f'];let p=[];
 for(let i=0;i<90;i++)p.push({x:innerWidth/2,y:innerHeight*.3,vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,s:Math.random()*7+3,a:Math.random()*6,w:Math.random()*.3+.1,c:cs[i%5]});
@@ -154,7 +154,7 @@ let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
-<script type="module" src="audio.js?v=1126114500"></script>
-<script type="module" src="sorteio.js?v=1126114500"></script>
+<script type="module" src="audio.js?v=1126120000"></script>
+<script type="module" src="sorteio.js?v=1126120000"></script>
 </body>
 </html>

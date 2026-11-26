@@ -326,3 +326,4 @@ body>.convite::before{mix-blend-mode:normal;opacity:.08}
 .abertura{background:var(--bg)}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+@media (pointer:coarse){.grao{display:none}body.revelado .halo{filter:none}.btn:not(.sec)::after{animation:none;display:none}.env{animation:none}}
