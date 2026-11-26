@@ -323,6 +323,6 @@ html,body{overflow-x:clip;max-width:100%}
 .env::after{display:none}
 body>.convite::before{mix-blend-mode:normal;opacity:.08}
 #fundoVid{display:none}
-.abertura{background:url(midia/capa.jpg) center/cover no-repeat}
-.abertura::before{content:'';position:absolute;inset:0;background:rgba(7,7,9,.72);backdrop-filter:none}
+.abertura{background:var(--bg)}
+
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
