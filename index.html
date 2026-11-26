@@ -6,12 +6,12 @@
 <title>Amigo Secreto da Família Sousa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1125140725">
+<link rel="stylesheet" href="style.css?v=1126113000">
 </head>
 <body>
 <div id="abertura" class="abertura">
-  <video id="fundoVid" autoplay loop src="midia/abertura.mp4?v=1125140725" muted playsinline preload="auto" aria-hidden="true"></video>
-  <video id="vid" src="midia/abertura.mp4?v=1125140725" playsinline preload="auto" poster="midia/capa.jpg"></video>
+  
+  <video id="vid" src="midia/abertura.mp4?v=1126113000" playsinline preload="auto" poster="midia/capa.jpg"></video>
   <div class="capaIntro" id="capaIntro">
     <canvas id="poeiraIntro"></canvas>
     <p class="kicker">Família Sousa apresenta</p>
@@ -42,7 +42,7 @@
 document.body.classList.add('intro');
 (()=>{const c=document.getElementById('poeiraIntro');if(!c)return;const x=c.getContext('2d');let f=[];const r=()=>{c.width=innerWidth;c.height=innerHeight};r();addEventListener('resize',r);for(let i=0;i<90;i++)f.push({x:innerWidth/2+(Math.random()-.5)*innerWidth*.7,y:Math.random()*innerHeight,r:Math.random()*1.5+.3,v:Math.random()*.15+.03,d:Math.random()*6});(function a(){if(!c.isConnected)return;x.clearRect(0,0,c.width,c.height);for(const p of f){p.y-=p.v;p.d+=.012;p.x+=Math.sin(p.d)*.2;if(p.y<-4){p.y=c.height+4}const o=(.25+Math.sin(p.d*3)*.2)*(1-Math.abs(p.x-c.width/2)/(c.width*.4));x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(241,226,189,'+Math.max(0,o)+')';x.fill()}requestAnimationFrame(a)})()})();
 (() => {
-  const ab = document.getElementById('abertura'), v = document.getElementById('vid'), f = document.getElementById('fundoVid');
+  const ab = document.getElementById('abertura'), v = document.getElementById('vid'), f = {pause(){},play(){},currentTime:0};
   const fim = () => {
     if (!document.body.classList.contains('intro')) return;
     v.pause(); f.pause(); ab.classList.add('sai');
@@ -59,7 +59,7 @@ document.body.classList.add('intro');
   };
   document.getElementById('pular').onclick = e => { e.stopPropagation(); fim(); };
   v.onended = fim;
-  v.ontimeupdate = () => { document.getElementById('prog').style.width = (v.currentTime / v.duration * 100) + '%'; f.currentTime - v.currentTime > .3 || v.currentTime - f.currentTime > .3 ? f.currentTime = v.currentTime : 0; };
+  v.ontimeupdate = () => { document.getElementById('prog').style.width = (v.currentTime / v.duration * 100) + '%';  };
 })();
 </script>
 <canvas id="brilhos"></canvas>
@@ -131,30 +131,30 @@ document.body.classList.add('intro');
 /* brilhos dourados no fundo */
 /* poeira dourada dançando no facho de luz */
 (()=>{const c=document.getElementById('brilhos'),x=c.getContext('2d');let f=[],W,H;
-function r(){W=innerWidth;H=innerHeight;c.width=W*devicePixelRatio;c.height=H*devicePixelRatio;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}r();addEventListener('resize',r);
+function r(){W=innerWidth;H=innerHeight;const d=Math.min(devicePixelRatio,1.5);c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(d,0,0,d,0,0)}r();addEventListener('resize',r);
 const novo=(y)=>{const largura=Math.min(520,W*.85);return{x:W/2+(Math.random()-.5)*largura*(0.4+Math.random()*.6),y:y??Math.random()*H,r:Math.random()*1.6+.3,v:Math.random()*.12+.02,d:Math.random()*6,s:Math.random()*.6+.2}};
-for(let i=0;i<110;i++)f.push(novo());
+for(let i=0;i<(innerWidth<600?45:80);i++)f.push(novo());
 (function a(){x.clearRect(0,0,W,H);for(const p of f){p.y-=p.v;p.d+=.01;p.x+=Math.sin(p.d)*.15;if(p.y<-5)Object.assign(p,novo(H+5));
 const luz=Math.max(0,1-Math.abs(p.x-W/2)/(Math.min(520,W*.85)/2))*(1-p.y/H*.6);const o=(.15+Math.sin(p.d*3)*.12+.15)*luz*p.s*2;
-x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(241,226,189,'+o+')';x.shadowColor='#d6ba82';x.shadowBlur=8;x.fill()}requestAnimationFrame(a)})()})();
+x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(241,226,189,'+o+')';x.fill()}if(!document.hidden)requestAnimationFrame(a);else setTimeout(a,500)})()})();
 /* faíscas do lacre */
 window.faiscas=(cx,cy)=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:16';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
-const g=k.getContext('2d');let p=[];for(let i=0;i<140;i++){const a=Math.random()*7,v=Math.random()*9+2;p.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,l:1,r:Math.random()*2+.6})}
+const g=k.getContext('2d');let p=[];for(let i=0;i<90;i++){const a=Math.random()*7,v=Math.random()*9+2;p.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,l:1,r:Math.random()*2+.6})}
 (function d(){g.clearRect(0,0,k.width,k.height);let vivo=0;for(const q of p){if(q.l<=0)continue;vivo++;q.x+=q.vx;q.y+=q.vy;q.vx*=.95;q.vy=q.vy*.95+.12;q.l-=.014;
-g.globalAlpha=q.l;g.fillStyle=q.l>.6?'#fff7e0':'#d6ba82';g.shadowColor='#f1e2bd';g.shadowBlur=10;g.beginPath();g.arc(q.x,q.y,q.r,0,7);g.fill()}
+g.globalAlpha=q.l;g.fillStyle=q.l>.6?'#fff7e0':'#d6ba82';g.beginPath();g.arc(q.x,q.y,q.r,0,7);g.fill()}
 if(vivo)requestAnimationFrame(d);else k.remove()})()};
 /* envelope acompanha o movimento do mouse / celular */
 (()=>{let rx=0,ry=0,tx=0,ty=0;const set=(a,b)=>{tx=a;ty=b};
 addEventListener('mousemove',e=>set((e.clientY/innerHeight-.5)*-10,(e.clientX/innerWidth-.5)*14));
 addEventListener('deviceorientation',e=>{if(e.beta!=null)set(Math.max(-10,Math.min(10,(e.beta-45)*-.3)),Math.max(-14,Math.min(14,e.gamma*.4)))});
-(function a(){rx+=(tx-rx)*.06;ry+=(ty-ry)*.06;document.documentElement.style.setProperty('--rx',rx.toFixed(2)+'deg');document.documentElement.style.setProperty('--ry',ry.toFixed(2)+'deg');requestAnimationFrame(a)})()})();window.confete=()=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
+(function a(){if(Math.abs(tx-rx)+Math.abs(ty-ry)<.02){requestAnimationFrame(a);return}rx+=(tx-rx)*.06;ry+=(ty-ry)*.06;document.documentElement.style.setProperty('--rx',rx.toFixed(2)+'deg');document.documentElement.style.setProperty('--ry',ry.toFixed(2)+'deg');requestAnimationFrame(a)})()})();window.confete=()=>{const k=document.createElement('canvas');k.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:5';k.width=innerWidth;k.height=innerHeight;document.body.appendChild(k);
 const g=k.getContext('2d'),cs=['#f6e3b4','#d9b46c','#b38a45','#fff','#ff4a4f'];let p=[];
 for(let i=0;i<90;i++)p.push({x:innerWidth/2,y:innerHeight*.3,vx:(Math.random()-.5)*16,vy:Math.random()*-15-3,s:Math.random()*7+3,a:Math.random()*6,w:Math.random()*.3+.1,c:cs[i%5]});
 let t=0;(function d(){g.clearRect(0,0,k.width,k.height);for(const q of p){q.x+=q.vx;q.y+=q.vy;q.vy+=.32;q.vx*=.985;q.a+=q.w;g.save();g.translate(q.x,q.y);g.rotate(q.a);g.scale(1,Math.cos(q.a*2));g.fillStyle=q.c;g.fillRect(-q.s/2,-q.s/4,q.s,q.s/2);g.restore()}
 if(++t<220)requestAnimationFrame(d);else k.remove()})()};
 </script>
 
-<script type="module" src="audio.js?v=1125140725"></script>
-<script type="module" src="sorteio.js?v=1125140725"></script>
+<script type="module" src="audio.js?v=1126113000"></script>
+<script type="module" src="sorteio.js?v=1126113000"></script>
 </body>
 </html>

@@ -313,3 +313,16 @@ h1 em{font-style:normal;font-weight:600;letter-spacing:.32em;margin-top:6px}
 @media(max-width:420px){h1{font-size:1.7rem}.capaIntro h1{font-size:2.2rem}.legenda{font-size:1.15rem}}
 .anoIntro{font-size:.92rem;letter-spacing:.04em;max-width:90vw;text-wrap:balance}
 .form label{text-wrap:balance}
+
+/* ===== otimização e centralização no celular ===== */
+html,body{overflow-x:clip;max-width:100%}
+.halo{width:min(420px,100%);max-width:100%}
+.palco{overflow:visible}
+.env{will-change:transform}
+.grao{animation:none;inset:0;opacity:.05}
+.env::after{display:none}
+body>.convite::before{mix-blend-mode:normal;opacity:.08}
+#fundoVid{display:none}
+.abertura{background:url(midia/capa.jpg) center/cover no-repeat}
+.abertura::before{content:'';position:absolute;inset:0;background:rgba(7,7,9,.72);backdrop-filter:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
