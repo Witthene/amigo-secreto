@@ -98,8 +98,13 @@ export const som = {
   rufar(l){ som.batida(l); }, pop(){ som.lacre(); }, tada(){ som.revelacao(); },
   async fala(n){
     if (!ligado) return;
-    const a = falas[n] || new Audio(`midia/fala${n}.mp3?v=1126130000`); a.currentTime = 0; a.muted = false; a.volume = 1;
-    await new Promise(r => { a.onended = r; a.onerror = r; a.play().catch(r); });
+    try {
+      iniciar(); if (ctx.state !== 'running') await ctx.resume();
+      const buf = await carregaFala(n); if (!buf) return;
+      const s = ctx.createBufferSource(), g = ctx.createGain(); g.gain.value = 1.3;
+      s.buffer = buf; s.connect(g); g.connect(ctx.destination);
+      await new Promise(r => { s.onended = r; s.start(); });
+    } catch (e) {}
   },
 };
 window.som = som;
@@ -123,11 +128,11 @@ const destrava = () => { iniciar(); ctx.resume(); if (ligado && !document.body.c
 addEventListener('pointerdown', destrava);
 document.addEventListener('click', e => { if (e.target.closest('button:not(.somBtn)')) som.clique(); });
 
-// falas pré-carregadas e destravaFalasdas no primeiro toque (celular bloqueia som fora do toque)
-const falas = {};
-[1,2,3].forEach(n => { const x = new Audio(`midia/fala${n}.mp3?v=1126130000`); x.preload = 'auto'; falas[n] = x; });
-const destravaFalas = () => {
-  Object.values(falas).forEach(x => { x.muted = true; x.play().then(() => { x.pause(); x.currentTime = 0; x.muted = false; }).catch(() => { x.muted = false; }); });
-  removeEventListener('pointerdown', destravaFalas, true); removeEventListener('touchend', destravaFalas, true);
-};
-addEventListener('pointerdown', destravaFalas, true); addEventListener('touchend', destravaFalas, true);
+// falas tocadas pelo WebAudio (o mesmo motor da música), que o celular libera no primeiro toque
+const brutas = {}, prontas = {};
+[1,2,3].forEach(n => { brutas[n] = fetch(`midia/fala${n}.mp3?v=1126130000`).then(r => r.arrayBuffer()).catch(() => null); });
+function carregaFala(n){
+  if (!prontas[n]) prontas[n] = brutas[n].then(ab => ab && new Promise(ok => ctx.decodeAudioData(ab.slice(0), ok, () => ok(null))));
+  return prontas[n];
+}
+addEventListener('pointerdown', () => { iniciar(); ctx.resume(); [1,2,3].forEach(carregaFala); }, { once: true, capture: true });
