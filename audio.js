@@ -98,7 +98,7 @@ export const som = {
   rufar(l){ som.batida(l); }, pop(){ som.lacre(); }, tada(){ som.revelacao(); },
   async fala(n){
     if (!ligado) return;
-    const a = new Audio(`midia/fala${n}.mp3?v=1125135155`); a.volume = 1;
+    const a = falas[n] || new Audio(`midia/fala${n}.mp3?v=1125135155`); a.currentTime = 0; a.muted = false; a.volume = 1;
     await new Promise(r => { a.onended = r; a.onerror = r; a.play().catch(r); });
   },
 };
@@ -122,3 +122,12 @@ document.body.appendChild(bt);
 const destrava = () => { iniciar(); ctx.resume(); if (ligado && !document.body.classList.contains('intro')) tocarMusica(); removeEventListener('pointerdown', destrava); };
 addEventListener('pointerdown', destrava);
 document.addEventListener('click', e => { if (e.target.closest('button:not(.somBtn)')) som.clique(); });
+
+// falas pré-carregadas e destravaFalasdas no primeiro toque (celular bloqueia som fora do toque)
+const falas = {};
+[1,2,3].forEach(n => { const x = new Audio(`midia/fala${n}.mp3?v=1125135155`); x.preload = 'auto'; falas[n] = x; });
+const destravaFalas = () => {
+  Object.values(falas).forEach(x => { x.muted = true; x.play().then(() => { x.pause(); x.currentTime = 0; x.muted = false; }).catch(() => { x.muted = false; }); });
+  removeEventListener('pointerdown', destravaFalas, true); removeEventListener('touchend', destravaFalas, true);
+};
+addEventListener('pointerdown', destravaFalas, true); addEventListener('touchend', destravaFalas, true);
